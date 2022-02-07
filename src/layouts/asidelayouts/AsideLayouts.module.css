@@ -1,0 +1,8 @@
+.container {
+  display: grid;
+  grid-template-columns: 510px calc(100vw - 510px);
+}
+
+.content {
+  display: flex;
+}
