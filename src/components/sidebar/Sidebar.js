@@ -2,8 +2,10 @@ import style from './Sidebar.module.css'
 import Calendar from '../../assets/Icon feather-calendar.svg'
 import UFRN from '../../assets/g10-8.svg'
 import LAIS from '../../assets/Grupo 10.svg'
+import { useNavigate } from 'react-router-dom'
 
 function Sidebar() {
+  const navigate = useNavigate()
   return (
     <aside className={style.sidebar}>
       <img src={Calendar} className={style.calendar} />
@@ -13,7 +15,14 @@ function Sidebar() {
         <p>Evite filas e aglomerações.</p>
         <span>O seu bem é o bem de todos</span>
       </div>
-      <button className={style.sideButton}>TRANSPARÊNCIA</button>
+      <button
+        className={style.sideButton}
+        onClick={() => {
+          navigate('/graphs')
+        }}
+      >
+        TRANSPARÊNCIA
+      </button>
       <div className={style.labStyle}>
         <img src={LAIS} />
         <img src={UFRN} />

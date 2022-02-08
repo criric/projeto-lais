@@ -27,14 +27,40 @@ function Graphs() {
   return (
     <AsideLayouts>
       <ApexChart
+        options={{
+          chart: { id: 'basicBar' },
+          labels: ['Coronavac', 'Pfizer']
+        }}
+        series={[
+          parseInt(vacinaRecebida?.coronavac?.replace('%', '')),
+          parseInt(vacinaRecebida?.pfizer?.replace('%', ''))
+        ]}
+        type="pie"
+        width="300"
+      />
+      {/* <ApexChart
+        options={{
+          chart: { id: 'basicBar' },
+          xaxis: [
+            dosesAplicada.map(item => {
+              console.log(item.faixa)
+              return item.faixa
+            })
+          ]
+        }}
+        series={[10, 15, 13]}
+        type="bar"
+        width="500"
+      />
+      <ApexChart
         options={{ chart: { id: 'basicBar' }, labels: ['Coronavac', 'Pfizer'] }}
         series={[
           parseInt(vacinaRecebida?.coronavac?.replace('%', '')),
           parseInt(vacinaRecebida?.pfizer?.replace('%', ''))
         ]}
         type="pie"
-        width="500"
-      />
+        width="250"
+      /> */}
     </AsideLayouts>
   )
 }
