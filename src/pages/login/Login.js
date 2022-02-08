@@ -1,8 +1,11 @@
 import AsideLayout from '../../layouts/asidelayouts/AsideLayouts'
 import style from './Login.module.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Api from '../../services/Api'
 import { toast } from 'react-toastify'
+import { Context } from '../../contexts/userContext'
+import { useNavigate } from 'react-router-dom'
+
 function Login() {
   const [index, setIndex] = useState(0)
   const [email, setEmail] = useState('')
@@ -12,6 +15,8 @@ function Login() {
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
 
+  const { changeUser } = useContext(Context)
+  const navigate = useNavigate()
   const postUser = async () => {
     try {
       const response = await Api.axios.post('/users', {
@@ -27,17 +32,47 @@ function Login() {
     }
   }
 
+  const login = async () => {
+    try {
+      const response = await Api.axios.post('/login', {
+        email: loginEmail,
+        password: loginPassword
+      })
+      if (response.data) {
+        localStorage.setItem('token', response.data.accessToken)
+        changeUser(response.data.user)
+        navigate('/user')
+      }
+    } catch (error) {
+      toast.error(error.response.data)
+    }
+  }
+
   const steps = [
     <div className={style.loginContainer}>
       <p>Preencha os campos abaixo</p>
       <div className={style.input}>
         <label for="email">Email</label>
-        <input type="text" id="email" value={''} />
+        <input
+          type="text"
+          id="email"
+          value={loginEmail}
+          onChange={event => {
+            setLoginEmail(event.target.value)
+          }}
+        />
       </div>
 
       <div className={style.input}>
         <label for="password">Senha</label>
-        <input type="password" id="password" value={''} />
+        <input
+          type="password"
+          id="password"
+          value={loginPassword}
+          onChange={event => {
+            setLoginPassword(event.target.value)
+          }}
+        />
       </div>
       <p>Esqueceu sua senha?</p>
       <button
@@ -45,6 +80,7 @@ function Login() {
           !loginEmail?.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/) ||
           !loginPassword
         }
+        onClick={login}
       >
         Entrar
       </button>

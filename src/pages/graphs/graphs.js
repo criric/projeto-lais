@@ -1,7 +1,8 @@
 import ApexChart from 'react-apexcharts'
 import Api from '../../services/Api'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import AsideLayouts from '../../layouts/asidelayouts/AsideLayouts'
+import { Context } from '../../contexts/userContext'
 
 function Graphs() {
   const [vacinaRecebida, setvacinaRecebida] = useState()
@@ -23,7 +24,6 @@ function Graphs() {
     getTransparencia()
   }, [])
 
-  console.log(vacinaRecebida, dosesAplicada, vacinadosGeral)
   return (
     <AsideLayouts>
       <ApexChart
