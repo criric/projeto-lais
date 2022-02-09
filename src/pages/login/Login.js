@@ -1,6 +1,6 @@
 import AsideLayout from '../../layouts/asidelayouts/AsideLayouts'
 import style from './Login.module.css'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Api from '../../services/Api'
 import { toast } from 'react-toastify'
 import { Context } from '../../contexts/userContext'
@@ -16,8 +16,9 @@ function Login() {
   const [loginPassword, setLoginPassword] = useState('')
   const [modal, setModal] = useState(false)
 
-  const { setUser } = useContext(Context)
+  const { user, setUser } = useContext(Context)
   const navigate = useNavigate()
+
   const postUser = async () => {
     try {
       const response = await Api.axios.post('/users', {
@@ -48,6 +49,11 @@ function Login() {
       toast.error(error.response.data)
     }
   }
+
+  const token = localStorage.getItem('token')
+  useEffect(() => {
+    if (user && token) navigate('/user')
+  }, [user, token])
 
   const steps = [
     <div className={style.loginContainer}>
@@ -194,6 +200,7 @@ function Login() {
       </div>
     </div>
   ]
+
   return (
     <AsideLayout>
       <div className={style.container}>

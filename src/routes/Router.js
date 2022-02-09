@@ -1,7 +1,5 @@
-import Login from '../pages/login/Login'
 import AuthRouter from './auth.routes'
 import UserRouter from './dashbord.routes'
-import User from '../pages/users/User'
 import { Context } from '../contexts/userContext'
 import { useContext, useEffect } from 'react'
 import Api from '../services/Api'
@@ -20,7 +18,6 @@ function Router() {
       if (response.data) {
         const { email } = jwtDecode(token)
         setUser(response.data.find(user => email === user.email))
-        navigate('/user')
       }
     } catch (error) {
       toast.error(error.response.data)
@@ -32,6 +29,11 @@ function Router() {
     }
   }, [token, user])
 
-  return <>{user ? <UserRouter /> : <AuthRouter />}</>
+  return (
+    <>
+      <AuthRouter />
+      <UserRouter />
+    </>
+  )
 }
 export default Router

@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import { Context } from '../../contexts/userContext'
-import FolderIcon from '@mui/icons-material/Folder'
-
+import FolderIcon from '../../assets/folderIcon.png'
 function UserSidebar() {
   const { user } = useContext(Context)
   console.log(user)
@@ -18,7 +17,7 @@ function UserSidebar() {
       </div>
       <div>
         <button>
-          <FolderIcon />
+          <img src={FolderIcon} />
           Meus agendamentos
         </button>
         <button>Agendar</button>
