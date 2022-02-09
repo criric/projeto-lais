@@ -16,7 +16,7 @@ function Login() {
   const [loginPassword, setLoginPassword] = useState('')
   const [modal, setModal] = useState(false)
 
-  const { changeUser } = useContext(Context)
+  const { setUser } = useContext(Context)
   const navigate = useNavigate()
   const postUser = async () => {
     try {
@@ -41,7 +41,7 @@ function Login() {
       })
       if (response.data) {
         localStorage.setItem('token', response.data.accessToken)
-        changeUser(response.data.user)
+        setUser(response.data.user)
         navigate('/user')
       }
     } catch (error) {

@@ -1,8 +1,7 @@
 import ApexChart from 'react-apexcharts'
 import Api from '../../services/Api'
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import AsideLayouts from '../../layouts/asidelayouts/AsideLayouts'
-import { Context } from '../../contexts/userContext'
 
 function Graphs() {
   const [vacinaRecebida, setvacinaRecebida] = useState()
