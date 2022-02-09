@@ -181,7 +181,15 @@ function Login() {
           >
             Termos e serviços
           </a>
-          e<a className={style.services}>política de privacidade</a>
+          e
+          <a
+            className={style.services}
+            onClick={() => {
+              setModal(true)
+            }}
+          >
+            política de privacidade
+          </a>
         </p>
       </div>
     </div>
