@@ -3,11 +3,14 @@ import { Context } from '../../contexts/userContext'
 import FolderIcon from '../../assets/folderIcon.png'
 import Calendar from '../../assets/Icon feather-calendar.svg'
 import userPhoto from '../../assets/Elipse 1.png'
-import pencil from '../../assets/Icon material-create.svg'
+import { IconFilter, IconFolder } from '../../assets/Icons'
 import style from './UserSidebar.module.css'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function UserSidebar() {
   const { user } = useContext(Context)
+  const navigate = useNavigate()
+  const location = useLocation()
   return (
     <aside className={style.container}>
       <div className={style.divContainer}>
@@ -22,13 +25,41 @@ function UserSidebar() {
             <p className={style.userName}>{user?.nome}</p>
           </div>
         </div>
+        <hr></hr>
         <div className={style.buttonContainer}>
-          <button className={style.myAgenda}>
-            <img src={FolderIcon} className={style.folderIcon} />
+          <button
+            className={style.myAgenda}
+            onClick={() => {
+              navigate('/agendamentos')
+            }}
+            style={{
+              backgroundColor:
+                location.pathname === '/agendamentos' && '#f72585',
+
+              color: location.pathname === '/agendamentos' && 'white'
+            }}
+          >
+            <IconFolder
+              color={
+                location.pathname === '/agendamentos' ? 'white' : '#f72585'
+              }
+            />
             Meus agendamentos
           </button>
-          <button className={style.agendar}>
-            <img src={pencil} />
+          <button
+            className={style.agendar}
+            onClick={() => {
+              navigate('/agendar')
+            }}
+            style={{
+              backgroundColor: location.pathname === '/agendar' && '#f72585',
+
+              color: location.pathname === '/agendar' && 'white'
+            }}
+          >
+            <IconFilter
+              color={location.pathname === '/agendar' ? 'white' : '#f72585'}
+            />
             Agendar
           </button>
         </div>

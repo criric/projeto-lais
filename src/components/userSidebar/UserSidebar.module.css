@@ -49,56 +49,32 @@
 
 .myAgenda {
   border: none;
+  border-radius: 4px;
   color: #3a0ca3;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* margin-left: 1rem; */
+  background: transparent;
   padding: 10px;
   gap: 0.5rem;
   width: 244px;
   height: 46px;
   font: normal normal normal 16px/25px Poppins;
-}
-
-.myAgenda:focus {
-  background-color: #f72585;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.5rem;
-  width: 244px;
-  height: 46px;
 }
 
 .agendar {
   border: none;
+  border-radius: 4px;
   color: #3a0ca3;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* margin-left: 1rem; */
+  background: transparent;
   padding: 10px;
   gap: 0.5rem;
   width: 244px;
   height: 46px;
   font: normal normal normal 16px/25px Poppins;
-}
-
-.agendar:focus {
-  background-color: #f72585;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.5rem;
-  width: 244px;
-  height: 46px;
 }
 
 .folderIcon {

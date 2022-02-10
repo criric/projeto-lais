@@ -57,4 +57,21 @@
 
 .filterMyAgenda {
   color: #3a0ca3;
+  margin-top: 48.5px;
+}
+
+.filterTitle0 {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 15px;
+}
+
+.filterSelect {
+  height: 37px;
+  width: 232px;
+  color: #3a0ca3;
+  border-color: #3a0ca3;
+  border-radius: 4px;
+  padding-left: 24px;
 }

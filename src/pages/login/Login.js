@@ -43,7 +43,7 @@ function Login() {
       if (response.data) {
         localStorage.setItem('token', response.data.accessToken)
         setUser(response.data.user)
-        navigate('/user')
+        navigate('/agendamentos')
       }
     } catch (error) {
       toast.error(error.response.data)
@@ -52,7 +52,7 @@ function Login() {
 
   const token = localStorage.getItem('token')
   useEffect(() => {
-    if (user && token) navigate('/user')
+    if (user && token) navigate('/agendamentos')
   }, [user, token])
 
   const steps = [
