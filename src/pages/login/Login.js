@@ -57,53 +57,69 @@ function Login() {
 
   const steps = [
     <div className={style.loginContainer}>
-      <p>Preencha os campos abaixo</p>
-      <div className={style.input}>
-        <label for="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          value={loginEmail}
-          onChange={event => {
-            setLoginEmail(event.target.value)
-          }}
-        />
+      <p style={{ color: '#f72585' }}>Preencha os campos abaixo</p>
+      <div className={style.formStyle}>
+        <div className={style.input}>
+          <label className={style.labelStyle} for="email">
+            Email
+          </label>
+          <input
+            type="text"
+            id="email"
+            value={loginEmail}
+            onChange={event => {
+              setLoginEmail(event.target.value)
+            }}
+            className={style.inputStyle}
+          />
+        </div>
+
+        <div className={style.input}>
+          <label className={style.labelStyle} for="password">
+            Senha
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={loginPassword}
+            onChange={event => {
+              setLoginPassword(event.target.value)
+            }}
+            className={style.inputStyle}
+          />
+        </div>
       </div>
 
-      <div className={style.input}>
-        <label for="password">Senha</label>
-        <input
-          type="password"
-          id="password"
-          value={loginPassword}
-          onChange={event => {
-            setLoginPassword(event.target.value)
-          }}
-        />
-      </div>
-      <p>Esqueceu sua senha?</p>
+      <p className={style.forgetPass}>Esqueceu sua senha?</p>
+
       <button
         disabled={
           !loginEmail?.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/) ||
           !loginPassword
         }
         onClick={login}
+        className={style.signupButton}
       >
         Entrar
       </button>
     </div>,
 
     <div className={style.loginContainer}>
-      <h4>Preencha os campos abaixo</h4>
-      <p>É rápido, simples e seguro</p>
+      <div className={style.title}>
+        <h3 style={{ color: '#f72585' }}>Preencha os campos abaixo</h3>
+        <p className={style.titlePara}>É rápido e simples</p>
+      </div>
       <div className={style.input}>
-        <label for="email">Email</label>
+        <label for="email" className={style.labelStyle}>
+          Email
+        </label>
         <input
           type="text"
           id="email"
           onChange={event => {
             setEmail(event.target.value)
           }}
+          className={style.inputStyle}
         />
       </div>
       <button
@@ -111,74 +127,93 @@ function Login() {
           setIndex(2)
         }}
         disabled={!email.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/)}
+        className={style.signupButton}
       >
         Continuar
       </button>
     </div>,
 
     <div className={style.loginContainer}>
-      <p>Preencha os campos abaixo</p>
-      <div className={style.input}>
-        <label for="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          value={email}
-          onChange={event => {
-            setEmail(event.target.value)
-          }}
-        />
-      </div>
+      <div className={style.loginContent}>
+        <div className={style.title}>
+          <h3 style={{ color: '#f72585' }}>Preencha os campos abaixo</h3>
+          <p className={style.titlePara}>É rápido, simples e seguro</p>
+        </div>
+        <div className={style.input}>
+          <label for="email" className={style.labelStyle}>
+            Email
+          </label>
+          <input
+            type="text"
+            id="email"
+            value={email}
+            onChange={event => {
+              setEmail(event.target.value)
+            }}
+            className={style.inputStyle}
+          />
+        </div>
 
-      <div className={style.input}>
-        <label for="nome">Nome</label>
-        <input
-          type="text"
-          id="nome"
-          value={name}
-          onChange={event => {
-            setName(event.target.value)
-          }}
-        />
-      </div>
+        <div className={style.input}>
+          <label for="nome" className={style.labelStyle}>
+            Nome
+          </label>
+          <input
+            type="text"
+            id="nome"
+            value={name}
+            onChange={event => {
+              setName(event.target.value)
+            }}
+            className={style.inputStyle}
+          />
+        </div>
 
-      <div className={style.input}>
-        <label for="password">Senha</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={event => {
-            setPassword(event.target.value)
-          }}
-        />
-      </div>
+        <div className={style.input}>
+          <label for="password" className={style.labelStyle}>
+            Senha
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={event => {
+              setPassword(event.target.value)
+            }}
+            className={style.inputStyle}
+          />
+        </div>
 
-      <div className={style.input}>
-        <label for="confirmPassword">Confirmação de senha</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={event => {
-            setConfirmPassword(event.target.value)
-          }}
-        />
+        <div className={style.input}>
+          <label for="confirmPassword" className={style.labelStyle}>
+            Confirmação de senha
+          </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={event => {
+              setConfirmPassword(event.target.value)
+            }}
+            className={style.inputStyle}
+          />
+        </div>
+        <button
+          disabled={
+            password != confirmPassword ||
+            !email.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/) ||
+            !password ||
+            !name
+          }
+          onClick={postUser}
+          className={style.signupButton}
+        >
+          Continuar
+        </button>
       </div>
-      <button
-        disabled={
-          password != confirmPassword ||
-          !email.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/) ||
-          !password ||
-          !name
-        }
-        onClick={postUser}
-      >
-        Continuar
-      </button>
       <div>
-        <p>
-          Ao assinar você concorda com os
+        <p className={style.termsServices}>
+          Ao assinar você concorda com os{' '}
           <a
             className={style.services}
             onClick={() => {
@@ -186,14 +221,15 @@ function Login() {
             }}
           >
             Termos e serviços
-          </a>
-          e
+          </a>{' '}
+          e{' '}
           <a
             className={style.services}
             onClick={() => {
               setModal(true)
             }}
           >
+            {' '}
             política de privacidade
           </a>
         </p>
@@ -205,13 +241,16 @@ function Login() {
     <AsideLayout>
       <div className={style.container}>
         <div className={style.stateContainer}>
-          <p>{index === 0 ? 'Não tem uma conta?' : 'Já tem conta?'}</p>
+          <p style={{ color: '#4a4a4a' }}>
+            {index === 0 ? 'Não tem uma conta?' : 'Já tem conta?'}
+          </p>
           <button
             onClick={() => {
               setIndex(index === 0 ? 1 : 0)
             }}
+            className={style.createButton}
           >
-            {index === 0 ? 'Criar uma' : 'Entrar'}
+            {index === 0 ? 'Crie uma' : 'Entrar'}
           </button>
         </div>
         {steps[index]}

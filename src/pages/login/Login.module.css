@@ -2,12 +2,15 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
+  padding: 20px;
 }
 
 .stateContainer {
   display: flex;
-  margin-left: auto;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
 }
 
 .loginContainer {
@@ -16,11 +19,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+}
+
+.forgetPass {
+  color: '#4a4a4a';
+  margin-left: auto;
 }
 
 .input {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .services {
@@ -45,4 +55,88 @@
   margin: auto;
   padding: 20px;
   width: 80%;
+}
+
+.labelStyle {
+  color: '#4a4a4a';
+  font: normal normal 300 16px/25px Poppins;
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
+}
+
+.inputStyle {
+  border: 1px solid #b4b4b4;
+  border-radius: 4px;
+  width: 23rem;
+  height: 3.2rem;
+}
+
+.createButton {
+  color: white;
+  border: none;
+  background: #3a0ca3 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 4px;
+  opacity: 1;
+  width: 151px;
+  height: 43px;
+  /* text-align: left; */
+  font: normal normal normal 16px/25px Poppins;
+  letter-spacing: 0px;
+}
+
+.createButton:hover {
+  cursor: pointer;
+}
+
+.signupButton {
+  width: 100%;
+  height: 3.2rem;
+  background-color: #f72585;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.signupButton:hover {
+  cursor: pointer;
+}
+
+.signupButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.formStyle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.titlePara {
+  font: normal normal 300 16px/25px Poppins;
+  letter-spacing: 0px;
+  color: #4a4a4a;
+}
+
+.termsServices {
+  max-width: 460px;
+  text-align: center;
+  font: normal normal 300 16px/25px Poppins;
+  letter-spacing: 0px;
+  color: #4a4a4a;
+}
+
+.loginContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }

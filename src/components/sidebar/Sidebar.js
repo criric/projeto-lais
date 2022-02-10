@@ -8,24 +8,28 @@ function Sidebar() {
   const navigate = useNavigate()
   return (
     <aside className={style.sidebar}>
-      <img src={Calendar} className={style.calendar} />
-      <h3 className={style.asideTitle}>Agendamento online</h3>
-      <p style={{}}> Rápido e segura</p>
-      <div className={style.asideParag}>
-        <p>Evite filas e aglomerações.</p>
-        <span>O seu bem é o bem de todos</span>
-      </div>
-      <button
-        className={style.sideButton}
-        onClick={() => {
-          navigate('/graphs')
-        }}
-      >
-        TRANSPARÊNCIA
-      </button>
-      <div className={style.labStyle}>
-        <img src={LAIS} />
-        <img src={UFRN} />
+      <div className={style.sidebarContainer}>
+        <div className={style.information}>
+          <img src={Calendar} className={style.calendar} />
+          <h3 className={style.asideTitle}>Agendamento online</h3>
+          <p> Rápido e segura</p>
+          <div className={style.asideParag}>
+            <p>Evite filas e aglomerações.</p>
+            <span>O seu bem é o bem de todos</span>
+          </div>
+          <button
+            className={style.sideButton}
+            onClick={() => {
+              navigate('/graphs')
+            }}
+          >
+            TRANSPARÊNCIA
+          </button>
+        </div>
+        <div className={style.labStyle}>
+          <img src={LAIS} />
+          <img src={UFRN} />
+        </div>
       </div>
     </aside>
   )

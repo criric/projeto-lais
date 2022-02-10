@@ -3,7 +3,6 @@ import { Context } from '../../contexts/userContext'
 import FolderIcon from '../../assets/folderIcon.png'
 function UserSidebar() {
   const { user } = useContext(Context)
-  console.log(user)
   return (
     <aside>
       <div>
