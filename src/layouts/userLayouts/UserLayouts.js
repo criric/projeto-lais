@@ -3,9 +3,9 @@ import UserSidebar from '../../components/userSidebar/UserSidebar'
 
 function UserLayouts({ children }) {
   return (
-    <div>
+    <div className={style.container}>
       <UserSidebar />
-      <div>{children}</div>
+      <div className={style.content}>{children}</div>
     </div>
   )
 }

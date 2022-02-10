@@ -206,12 +206,12 @@ function Login() {
             !name
           }
           onClick={postUser}
-          className={style.signupButton}
+          className={style.continueButton}
         >
           Continuar
         </button>
       </div>
-      <div>
+      <div className={style.servicesContainer}>
         <p className={style.termsServices}>
           Ao assinar você concorda com os{' '}
           <a

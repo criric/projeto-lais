@@ -22,6 +22,10 @@
   font: normal normal bold 16px/12px Poppins;
 }
 
+.sideButton:hover {
+  cursor: pointer;
+}
+
 .asideTitle {
   font-weight: bold;
   font-size: 26px;
