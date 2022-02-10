@@ -9,8 +9,8 @@ import style from './UserSidebar.module.css'
 function UserSidebar() {
   const { user } = useContext(Context)
   return (
-    <aside>
-      <div className={style.container}>
+    <aside className={style.container}>
+      <div className={style.divContainer}>
         <div className={style.iconAgenda}>
           <img src={Calendar} />
           <p>Agendamento Online</p>
@@ -24,7 +24,7 @@ function UserSidebar() {
         </div>
         <div className={style.buttonContainer}>
           <button className={style.myAgenda}>
-            <img src={FolderIcon} />
+            <img src={FolderIcon} className={style.folderIcon} />
             Meus agendamentos
           </button>
           <button className={style.agendar}>
