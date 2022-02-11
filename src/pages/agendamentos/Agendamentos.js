@@ -42,14 +42,16 @@ function Agendamentos() {
         <div className={style.agendamentoContainer}>
           {agendamentos &&
             agendamentos.map(item => {
-              return (
-                <MyAgenda
-                  data={item.data}
-                  local={item.localizacao}
-                  hora={item.hora}
-                  status={item.status}
-                />
-              )
+              if (item.localizacao) {
+                return (
+                  <MyAgenda
+                    data={item.data}
+                    local={item.localizacao}
+                    hora={item.hora}
+                    status={item.status}
+                  />
+                )
+              }
             })}
         </div>
       </div>

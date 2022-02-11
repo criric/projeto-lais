@@ -1,6 +1,6 @@
 import Api from '../../services/Api'
 import style from './Agendar.module.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { toast } from 'react-toastify'
 import { format } from 'date-fns'
 import UserLayout from '../../layouts/userLayouts/UserLayouts'
@@ -9,6 +9,8 @@ import ItemCard from '../../components/itemcard/ItemCard'
 import TimeCard from '../../components/timecard/TimeCard'
 import { rightArrow } from '../../assets/Icons'
 import MyAgenda from '../../components/myagenda/MyAgenda'
+import { Context } from '../../contexts/userContext'
+import ModalAgenda from '../../components/modalagenda/ModalAgenda'
 
 function Agendar() {
   const [campanhas, setCampanhas] = useState([])
@@ -18,11 +20,18 @@ function Agendar() {
   const [municipios, setMunicipios] = useState([])
   const [itemPage, setItemPage] = useState([])
   const [filterData, setFilterData] = useState()
+  const [filterCampanha, setFilterCampanha] = useState()
+  const [filterGrupo, setFilterGrupo] = useState()
+  const [filterMunicipio, setFilterMunicipio] = useState()
+  const [tipoExame, setTipoExame] = useState()
+  const [agendamentos, setAgendamentos] = useState()
+  const { user } = useContext(Context)
 
   const getCampanha = async () => {
     try {
       const response = await Api.axios.get('/campanha')
       setCampanhas(response.data)
+      setFilterCampanha(response.data[0])
     } catch (error) {
       toast.error(error.response.data)
     }
@@ -32,6 +41,7 @@ function Agendar() {
     try {
       const response = await Api.axios.get('/grupos-atendimentos')
       setGrupos(response.data)
+      setFilterGrupo(response.data[0])
     } catch (error) {
       toast.error(error.response.data)
     }
@@ -49,23 +59,36 @@ function Agendar() {
           if (!acc.datas.includes(curr.data)) acc.datas.push(curr.data)
           return acc
         },
-        { municipios: [], datas: [] }
+        { municipios: ['Natal'], datas: ['02-23-2022'] }
       )
 
       setDisponibilidades(response.data)
       setMunicipios(disponibilidade.municipios)
       setDatas(disponibilidade.datas)
+      setFilterData(disponibilidade.datas[0])
+      setFilterMunicipio(disponibilidade.municipios[0])
     } catch (error) {
       toast.error(error.response.data)
     }
   }
 
-  useEffect(() => {
-    getCampanha()
-    getGrupos()
-    getDisponibilidade()
-  }, [])
-
+  const postAgendamento = async () => {
+    try {
+      const response = await Api.axios.post('/agendamentos', {
+        usuario_id: user.id,
+        campanha_id: filterCampanha.id,
+        grupo_atendimento_id: filterGrupo.id,
+        municipio: filterMunicipio,
+        // localizacao:
+        data: filterData,
+        // hora:
+        status: 'AGENDADO',
+        tipo_exame: tipoExame
+      })
+    } catch (error) {
+      toast.error(error.response.data)
+    }
+  }
   const renderByPagination = page => {
     const firstIndexItem = page * 3
     const pagedItem = disponibilidades.slice(firstIndexItem, firstIndexItem + 3)
@@ -73,14 +96,28 @@ function Agendar() {
     setItemPage(pagedItem)
   }
 
+  const getFilteredAgenda = async () => {
+    try {
+      const response = await Api.axios.get(
+        `/agendamento-disponibilidade?campanha=${filterCampanha.nome}&municipio=${filterMunicipio}&data=${filterData}`
+      )
+
+      setDisponibilidades(response.data)
+    } catch (error) {
+      toast.error(error.response.data)
+    }
+  }
+
   useEffect(() => {
     if (disponibilidades) renderByPagination(0)
   }, [disponibilidades])
 
-  const createMyAgenda = () => {
-    const postAgendamento = () => {}
-  }
-
+  useEffect(() => {
+    getCampanha()
+    getGrupos()
+    getDisponibilidade()
+  }, [])
+  const createMyAgenda = () => {}
   const FilterCard = () => (
     <div>
       <h3 className={style.title}>Agendar</h3>
@@ -89,7 +126,16 @@ function Agendar() {
           <label for="tipo" className={style.filterTitle}>
             Campanha
           </label>
-          <select id="tipo" className={style.select}>
+          <select
+            id="tipo"
+            className={style.select}
+            value={filterCampanha?.nome}
+            onChange={event => {
+              setFilterCampanha(
+                campanhas.find(campanha => campanha.nome === event.target.value)
+              )
+            }}
+          >
             {campanhas.map((campanha, i) => {
               return (
                 <option key={i} value={campanha.nome}>
@@ -104,7 +150,14 @@ function Agendar() {
           <label for="city" className={style.filterTitle}>
             Município
           </label>
-          <select id="city" className={style.select}>
+          <select
+            id="city"
+            className={style.select}
+            onChange={event => {
+              setFilterMunicipio(event.target.value)
+            }}
+            value={filterMunicipio}
+          >
             {municipios.map((municipio, i) => {
               return (
                 <option key={i} value={municipio}>
@@ -119,7 +172,16 @@ function Agendar() {
           <label for="group" className={style.filterTitle}>
             Grupo de atendimento
           </label>
-          <select id="group" className={style.select}>
+          <select
+            id="group"
+            className={style.select}
+            onChange={event => {
+              setFilterGrupo(
+                grupos.find(group => group.nome === event.target.value)
+              )
+            }}
+            value={filterGrupo?.nome}
+          >
             {grupos.map((grupo, i) => {
               return (
                 <option key={i} value={grupo.nome}>
@@ -158,20 +220,45 @@ function Agendar() {
           </label>
           <div id="exam">
             <div className={style.inputRatio}>
-              <input type="radio" id="RT" />
+              <input
+                type="radio"
+                id="RT"
+                name="RT"
+                value="RT-PC"
+                onChange={event => {
+                  setTipoExame(event.target.value)
+                }}
+                checked={tipoExame === 'RT-PC'}
+              />
               <label for="RT" className={style.ratioLabel}>
                 RT-PC
               </label>
             </div>
             <div className={style.inputRatio}>
-              <input type="radio" id="anti" />
+              <input
+                type="radio"
+                id="anti"
+                nome="anti"
+                value="Antígeno"
+                onChange={event => {
+                  setTipoExame(event.target.value)
+                }}
+                checked={tipoExame === 'Antígeno'}
+              />
               <label for="anti" className={style.ratioLabel}>
                 Antígeno
               </label>
             </div>
           </div>
         </div>
-        <button className={style.signupButton}>Procurar</button>
+        <button
+          className={style.signupButton}
+          onClick={() => {
+            getFilteredAgenda()
+          }}
+        >
+          Procurar
+        </button>
       </div>
     </div>
   )
@@ -206,7 +293,7 @@ function Agendar() {
             <button
               className={style.aplicarFiltro}
               onClick={() => {
-                createMyAgenda()
+                postAgendamento()
               }}
             >
               Continuar
