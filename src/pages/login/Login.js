@@ -57,80 +57,84 @@ function Login() {
 
   const steps = [
     <div className={style.loginContainer}>
-      <p style={{ color: '#f72585' }}>Preencha os campos abaixo</p>
-      <div className={style.formStyle}>
+      <div className={style.loginContent}>
+        <p style={{ color: '#f72585' }}>Preencha os campos abaixo</p>
+        <div className={style.formStyle}>
+          <div className={style.input}>
+            <label className={style.labelStyle} for="email">
+              Email
+            </label>
+            <input
+              type="text"
+              id="email"
+              value={loginEmail}
+              onChange={event => {
+                setLoginEmail(event.target.value)
+              }}
+              className={style.inputStyle}
+            />
+          </div>
+
+          <div className={style.input}>
+            <label className={style.labelStyle} for="password">
+              Senha
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={loginPassword}
+              onChange={event => {
+                setLoginPassword(event.target.value)
+              }}
+              className={style.inputStyle}
+            />
+          </div>
+        </div>
+
+        <p className={style.forgetPass}>Esqueceu sua senha?</p>
+
+        <button
+          disabled={
+            !loginEmail?.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/) ||
+            !loginPassword
+          }
+          onClick={login}
+          className={style.signupButton}
+        >
+          Entrar
+        </button>
+      </div>
+    </div>,
+
+    <div className={style.loginContainer}>
+      <div className={style.loginContent}>
+        <div className={style.title}>
+          <h3 style={{ color: '#f72585' }}>Preencha os campos abaixo</h3>
+          <p className={style.titlePara}>É rápido e simples</p>
+        </div>
         <div className={style.input}>
-          <label className={style.labelStyle} for="email">
+          <label for="email" className={style.labelStyle}>
             Email
           </label>
           <input
             type="text"
             id="email"
-            value={loginEmail}
             onChange={event => {
-              setLoginEmail(event.target.value)
+              setEmail(event.target.value)
             }}
             className={style.inputStyle}
           />
         </div>
-
-        <div className={style.input}>
-          <label className={style.labelStyle} for="password">
-            Senha
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={loginPassword}
-            onChange={event => {
-              setLoginPassword(event.target.value)
-            }}
-            className={style.inputStyle}
-          />
-        </div>
-      </div>
-
-      <p className={style.forgetPass}>Esqueceu sua senha?</p>
-
-      <button
-        disabled={
-          !loginEmail?.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/) ||
-          !loginPassword
-        }
-        onClick={login}
-        className={style.signupButton}
-      >
-        Entrar
-      </button>
-    </div>,
-
-    <div className={style.loginContainer}>
-      <div className={style.title}>
-        <h3 style={{ color: '#f72585' }}>Preencha os campos abaixo</h3>
-        <p className={style.titlePara}>É rápido e simples</p>
-      </div>
-      <div className={style.input}>
-        <label for="email" className={style.labelStyle}>
-          Email
-        </label>
-        <input
-          type="text"
-          id="email"
-          onChange={event => {
-            setEmail(event.target.value)
+        <button
+          onClick={() => {
+            setIndex(2)
           }}
-          className={style.inputStyle}
-        />
+          disabled={!email.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/)}
+          className={style.signupButton}
+        >
+          Continuar
+        </button>
       </div>
-      <button
-        onClick={() => {
-          setIndex(2)
-        }}
-        disabled={!email.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/)}
-        className={style.signupButton}
-      >
-        Continuar
-      </button>
     </div>,
 
     <div className={style.loginContainer}>

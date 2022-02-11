@@ -1,0 +1,21 @@
+.container {
+  display: grid;
+  grid-template-columns: 54px 81px;
+  border: 1px solid #3a0ca3;
+  margin: 10px;
+}
+
+.timeAvaiable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3a0ca3;
+}
+
+.vagas {
+  background-color: #3a0ca3;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -55,3 +55,8 @@
 .ratioLabel {
   color: #3a0ca3;
 }
+
+.horariosDisponiveis {
+  display: flex;
+  flex-direction: column;
+}

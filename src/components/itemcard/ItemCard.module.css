@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.vagasDisponiveis {
+  display: flex;
+  max-width: 900px;
+  flex-wrap: wrap;
+}
+
+.vagasTitle {
+  font: normal normal medium 18px/26px Poppins;
+  font-weight: 500;
+  color: #3a0ca3;
+}
