@@ -5,8 +5,24 @@ import filter from '../../assets/Icon awesome-filter.svg'
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { format } from 'date-fns'
+import MyAgenda from '../../components/myagenda/MyAgenda'
 
 function Agendamentos() {
+  const [agendamentos, setAgendamentos] = useState([])
+
+  const getAgendamentos = async () => {
+    try {
+      const response = await Api.axios.get('/agendamentos')
+      setAgendamentos(response.data)
+    } catch (error) {
+      toast.error(error.response.data)
+    }
+  }
+
+  useEffect(() => {
+    getAgendamentos()
+  }, [])
+
   return (
     <UserLayout>
       <div>
@@ -22,6 +38,19 @@ function Agendamentos() {
               <option value="tipo">Tipo de Exame</option>
             </select>
           </div>
+        </div>
+        <div className={style.agendamentoContainer}>
+          {agendamentos &&
+            agendamentos.map(item => {
+              return (
+                <MyAgenda
+                  data={item.data}
+                  local={item.localizacao}
+                  hora={item.hora}
+                  status={item.status}
+                />
+              )
+            })}
         </div>
       </div>
     </UserLayout>

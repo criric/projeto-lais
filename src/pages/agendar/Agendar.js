@@ -7,6 +7,8 @@ import UserLayout from '../../layouts/userLayouts/UserLayouts'
 import ReactPaginate from 'react-paginate'
 import ItemCard from '../../components/itemcard/ItemCard'
 import TimeCard from '../../components/timecard/TimeCard'
+import { rightArrow } from '../../assets/Icons'
+import MyAgenda from '../../components/myagenda/MyAgenda'
 
 function Agendar() {
   const [campanhas, setCampanhas] = useState([])
@@ -74,6 +76,10 @@ function Agendar() {
   useEffect(() => {
     if (disponibilidades) renderByPagination(0)
   }, [disponibilidades])
+
+  const createMyAgenda = () => {
+    const postAgendamento = () => {}
+  }
 
   const FilterCard = () => (
     <div>
@@ -171,12 +177,12 @@ function Agendar() {
   )
 
   return (
-    <UserLayout>
+    <UserLayout className={style.container}>
       <FilterCard />
       {itemPage.length > 0 && (
-        <div>
+        <div className={style.vagasContainer}>
           <div>
-            <h3>
+            <h3 className={style.cardTitle}>
               Locais de exames
               {!!filterData &&
                 ` - ${format(new Date(filterData), 'dd/MM/yyyy')}`}
@@ -196,13 +202,25 @@ function Agendar() {
               </ItemCard>
             ))}
           </div>
-
-          <ReactPaginate
-            initialPage={0}
-            pageRangeDisplayed={5}
-            pageCount={disponibilidades.length / 3}
-            onPageChange={({ selected }) => renderByPagination(selected)}
-          />
+          <div className={style.changePage}>
+            <button
+              className={style.aplicarFiltro}
+              onClick={() => {
+                createMyAgenda()
+              }}
+            >
+              Continuar
+            </button>
+            <ReactPaginate
+              initialPage={0}
+              pageRangeDisplayed={5}
+              pageCount={disponibilidades.length / 3}
+              onPageChange={({ selected }) => renderByPagination(selected)}
+              nextLabel=">"
+              previousLabel="<"
+              className={style.pagination}
+            />
+          </div>
         </div>
       )}
     </UserLayout>

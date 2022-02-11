@@ -75,3 +75,8 @@
   border-radius: 4px;
   padding-left: 24px;
 }
+
+.agendamentoContainer {
+  display: flex;
+  gap: 57px;
+}

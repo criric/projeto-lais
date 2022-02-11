@@ -3,6 +3,8 @@
   grid-template-columns: 54px 81px;
   border: 1px solid #3a0ca3;
   margin: 10px;
+  height: 45px;
+  border-radius: 4px;
 }
 
 .timeAvaiable {

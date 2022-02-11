@@ -59,4 +59,42 @@
 .horariosDisponiveis {
   display: flex;
   flex-direction: column;
+  margin-top: 29px;
+}
+
+.cardTitle {
+  font: normal normal bold 26px/26px Poppins;
+  letter-spacing: 0px;
+  color: #3a0ca3;
+}
+
+.vagasContainer {
+  /* display: flex;
+  flex-direction: column; */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 4px;
+  max-width: 981px;
+  max-height: 1222px;
+  /* min-width: 981px;
+  min-height: 1222px; */
+  margin-left: 106px;
+  padding-left: 45px;
+  padding-top: 37px;
+  margin-top: 119px;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.aplicarFiltro {
+  width: 332px;
+  height: 3.2rem;
+  background-color: #f72585;
+  color: white;
+  border: none;
+  border-radius: 4px;
 }

@@ -1,6 +1,5 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { Context } from '../../contexts/userContext'
-import FolderIcon from '../../assets/folderIcon.png'
 import Calendar from '../../assets/Icon feather-calendar.svg'
 import userPhoto from '../../assets/Elipse 1.png'
 import { IconFilter, IconFolder } from '../../assets/Icons'
@@ -8,9 +7,17 @@ import style from './UserSidebar.module.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 function UserSidebar() {
+  const [loged, setLoged] = useState(true)
   const { user } = useContext(Context)
   const navigate = useNavigate()
   const location = useLocation()
+  const logout = () => {
+    if (loged) {
+      setLoged(false)
+      localStorage.removeItem('token')
+      navigate('/')
+    }
+  }
   return (
     <aside className={style.container}>
       <div className={style.divContainer}>
@@ -63,6 +70,13 @@ function UserSidebar() {
             Agendar
           </button>
         </div>
+        <button
+          onClick={() => {
+            logout()
+          }}
+        >
+          Sair
+        </button>
       </div>
     </aside>
   )
