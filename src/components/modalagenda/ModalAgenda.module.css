@@ -2,7 +2,83 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 100vw;
+  height: 100vh;
   transform: translate(-50%, -50%);
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modalContent {
+  background-color: #fefefe;
+  border-radius: 4px;
+  margin: auto;
+  margin-top: 9%;
+  padding: 20px;
+  max-width: 1058px;
+  width: 80%;
+  padding-top: 40px;
+  padding-left: 60px;
+}
+.title {
+  font: normal normal bold 30px Poppins;
+  color: #f72585;
+}
+
+.initialInformation {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  font: normal normal bold 20px Poppins;
+  color: #3a0ca3;
+}
+
+.mainInformation {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+  color: #3a0ca3;
+  padding-bottom: 36.5px;
+  border-bottom: 1px solid #ababab;
+}
+
+.informationList {
+  color: #ff4646;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 15px;
+}
+
+.finalInformation {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #3a0ca3;
+  margin-top: 24.5px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 138px;
+  gap: 15px;
+}
+
+.cancelButton {
+  height: 48px;
+  width: 267px;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.closeButton {
+  height: 48px;
+  width: 193px;
+  background-color: white;
+  border: 1px solid #ababab;
+  border-radius: 4px;
 }

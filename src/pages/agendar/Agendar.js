@@ -89,21 +89,10 @@ function Agendar() {
         status: 'AGENDADO',
         tipo_exame: tipoExame
       })
-      // console.log({
-      //   usuario_id: user.id,
-      //   campanha_id: filterCampanha.id,
-      //   grupo_atendimento_id: filterGrupo.id,
-      //   municipio: filterMunicipio,
-      //   localizacao: localizacao,
-      //   data: filterData,
-      //   hora: hora,
-      //   status: 'AGENDADO',
-      //   tipo_exame: tipoExame
-      // })
 
-      // if (response) {
-      //   setComprovante(true)
-      // }
+      if (response) {
+        setComprovante(true)
+      }
     } catch (error) {
       toast.error(error.response.data)
     }
@@ -122,6 +111,33 @@ function Agendar() {
       )
 
       setDisponibilidades(response.data)
+    } catch (error) {
+      toast.error(error.response.data)
+    }
+  }
+  const getAgendamentos = async () => {
+    try {
+      const response = await Api.axios.get('/agendamentos')
+
+      setAgendamentos(
+        response.data.filter(
+          prop => user.id === prop.usuario_id && prop.localizacao
+        )
+      )
+    } catch (error) {
+      toast.error(error.response.data)
+    }
+  }
+
+  const handleCancelAgenda = async id => {
+    try {
+      const response = await Api.axios.patch(`/agendamentos/${id}`, {
+        status: 'Cancelado'
+      })
+      if (response) {
+        getAgendamentos()
+        toast.success('Agendamento cancelado com sucesso')
+      }
     } catch (error) {
       toast.error(error.response.data)
     }
@@ -337,7 +353,16 @@ function Agendar() {
           </div>
         </div>
       )}
-      {comprovante && <ModalAgenda />}
+      {comprovante && (
+        <ModalAgenda
+          data={filterData}
+          hora={hora}
+          status="Agendado"
+          // local={filterMunicipio}
+          onClick={() => setComprovante(false)}
+          onCancel={() => handleCancelAgenda(itemSelected.id)}
+        />
+      )}
     </UserLayout>
   )
 }

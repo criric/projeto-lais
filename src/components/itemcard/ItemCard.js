@@ -6,7 +6,6 @@ function ItemCard({ children, local, camp, disp }) {
         {local} | {camp[0].nome} | {disp[0][0]} às {disp[disp.length - 1][0]}
       </h3>
       <div className={style.vagasDisponiveis}>{children}</div>
-      <hr />
     </div>
   )
 }

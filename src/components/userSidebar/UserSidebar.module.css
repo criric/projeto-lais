@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   max-width: 119px;
+  margin-bottom: 60px;
 }
 
 .calendar {
@@ -28,6 +29,9 @@
   justify-content: center;
   gap: 0.8rem;
   max-width: 300px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #92929257;
 }
 
 .welcome {
@@ -80,4 +84,32 @@
 .folderIcon {
   height: 19px;
   width: 28px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow {
+  width: 25px;
+  height: 20px;
+}
+
+.arrowMenu {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f72585;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+.profileButton {
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }

@@ -1,8 +1,14 @@
 import { useContext, useState } from 'react'
 import { Context } from '../../contexts/userContext'
-import Calendar from '../../assets/Icon feather-calendar.svg'
 import userPhoto from '../../assets/Elipse 1.png'
-import { IconFilter, IconFolder } from '../../assets/Icons'
+import {
+  IconFilter,
+  IconFolder,
+  ArrowDown,
+  Profile,
+  LogOut,
+  Agenda
+} from '../../assets/Icons'
 import style from './UserSidebar.module.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 
@@ -15,17 +21,21 @@ function UserSidebar() {
     <aside className={style.container}>
       <div className={style.divContainer}>
         <div className={style.iconAgenda}>
-          <img src={Calendar} />
           <p>Agendamento Online</p>
         </div>
         <div className={style.userProfile}>
           <img src={userPhoto} />
-          <div>
-            <p className={style.welcome}>Seja bem-vindo</p>
-            <p className={style.userName}>{user?.nome}</p>
+          <div className={style.profile}>
+            <div>
+              <p className={style.welcome}>Seja bem-vindo</p>
+              <p className={style.userName}>{user?.nome}</p>
+            </div>
+            <div className={style.arrow}>
+              <ArrowDown />
+            </div>
           </div>
         </div>
-        <hr></hr>
+
         <div className={style.buttonContainer}>
           <button
             className={style.myAgenda}
@@ -63,14 +73,22 @@ function UserSidebar() {
             Agendar
           </button>
         </div>
-        <button
-          onClick={() => {
-            localStorage.removeItem('token')
-            navigate('/')
-          }}
-        >
-          Sair
-        </button>
+        <div className={style.arrowMenu}>
+          <button className={style.profileButton}>
+            <Profile />
+            Meu perfil
+          </button>
+          <button
+            onClick={() => {
+              localStorage.removeItem('token')
+              navigate('/')
+            }}
+            className={style.profileButton}
+          >
+            <LogOut />
+            Sair
+          </button>
+        </div>
       </div>
     </aside>
   )

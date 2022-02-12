@@ -79,4 +79,25 @@
 .agendamentoContainer {
   display: flex;
   gap: 57px;
+  margin-top: 21px;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 27px;
+}
+
+.pagination li {
+  border: 1px solid #d1d5db;
+  width: 55px;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination li:hover {
+  cursor: pointer;
 }

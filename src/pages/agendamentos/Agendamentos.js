@@ -8,10 +8,13 @@ import { format } from 'date-fns'
 import MyAgenda from '../../components/myagenda/MyAgenda'
 import ReactPaginate from 'react-paginate'
 import { Context } from '../../contexts/userContext'
+import ModalAgenda from '../../components/modalagenda/ModalAgenda'
 
 function Agendamentos() {
   const [agendamentos, setAgendamentos] = useState([])
   const [itemPage, setItemPage] = useState()
+  const [comprovante, setComprovante] = useState(false)
+
   const { user } = useContext(Context)
 
   const getAgendamentos = async () => {
@@ -83,6 +86,7 @@ function Agendamentos() {
                   status={item.status}
                   tipo={item.tipo_exame}
                   onCancel={() => handleCancelAgenda(item.id)}
+                  onClick={() => setComprovante(true)}
                 />
               )
             })}
@@ -97,6 +101,7 @@ function Agendamentos() {
           className={style.pagination}
         />
       </div>
+      {comprovante && <ModalAgenda />}
     </UserLayout>
   )
 }
