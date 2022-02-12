@@ -2,27 +2,60 @@ import UserLayout from '../../layouts/userLayouts/UserLayouts'
 import Api from '../../services/Api'
 import style from './Agendamentos.module.css'
 import filter from '../../assets/Icon awesome-filter.svg'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { toast } from 'react-toastify'
 import { format } from 'date-fns'
 import MyAgenda from '../../components/myagenda/MyAgenda'
+import ReactPaginate from 'react-paginate'
+import { Context } from '../../contexts/userContext'
 
 function Agendamentos() {
   const [agendamentos, setAgendamentos] = useState([])
+  const [itemPage, setItemPage] = useState()
+  const { user } = useContext(Context)
 
   const getAgendamentos = async () => {
     try {
       const response = await Api.axios.get('/agendamentos')
-      setAgendamentos(response.data)
+
+      setAgendamentos(
+        response.data.filter(
+          prop => user.id === prop.usuario_id && prop.localizacao
+        )
+      )
+    } catch (error) {
+      toast.error(error.response.data)
+    }
+  }
+  console.log(user)
+  const renderByPagination = page => {
+    const firstIndexItem = page * 4
+    const pagedItem = agendamentos.slice(firstIndexItem, firstIndexItem + 4)
+
+    setItemPage(pagedItem)
+  }
+
+  const handleCancelAgenda = async id => {
+    try {
+      const response = await Api.axios.patch(`/agendamentos/${id}`, {
+        status: 'Cancelado'
+      })
+      if (response) {
+        getAgendamentos()
+        toast.success('Agendamento cancelado com sucesso')
+      }
     } catch (error) {
       toast.error(error.response.data)
     }
   }
 
   useEffect(() => {
+    if (agendamentos) renderByPagination(0)
+  }, [agendamentos])
+  useEffect(() => {
     getAgendamentos()
   }, [])
-
+  console.log(itemPage)
   return (
     <UserLayout>
       <div>
@@ -40,20 +73,29 @@ function Agendamentos() {
           </div>
         </div>
         <div className={style.agendamentoContainer}>
-          {agendamentos &&
-            agendamentos.map(item => {
-              if (item.localizacao) {
-                return (
-                  <MyAgenda
-                    data={item.data}
-                    local={item.localizacao}
-                    hora={item.hora}
-                    status={item.status}
-                  />
-                )
-              }
+          {itemPage &&
+            itemPage.map(item => {
+              return (
+                <MyAgenda
+                  data={item.data}
+                  local={item.localizacao}
+                  hora={item.hora}
+                  status={item.status}
+                  tipo={item.tipo_exame}
+                  onCancel={() => handleCancelAgenda(item.id)}
+                />
+              )
             })}
         </div>
+        <ReactPaginate
+          initialPage={0}
+          pageRangeDisplayed={5}
+          pageCount={agendamentos.length / 4}
+          onPageChange={({ selected }) => renderByPagination(selected)}
+          nextLabel=">"
+          previousLabel="<"
+          className={style.pagination}
+        />
       </div>
     </UserLayout>
   )

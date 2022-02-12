@@ -26,7 +26,11 @@ function Login() {
         nome: name,
         password
       })
+
       if (response) {
+        localStorage.setItem('token', response.data.accessToken)
+        setUser(response.data.user)
+        navigate('/agendamento')
         toast.success('Usuário cadastrado com sucesso')
       }
     } catch (error) {
@@ -94,10 +98,7 @@ function Login() {
         <p className={style.forgetPass}>Esqueceu sua senha?</p>
 
         <button
-          disabled={
-            !loginEmail?.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/) ||
-            !loginPassword
-          }
+          disabled={!loginEmail?.match(/^\w+([.-]?\w+)@/) || !loginPassword}
           onClick={login}
           className={style.signupButton}
         >
@@ -110,7 +111,7 @@ function Login() {
       <div className={style.loginContent}>
         <div className={style.title}>
           <h3 style={{ color: '#f72585' }}>Preencha os campos abaixo</h3>
-          <p className={style.titlePara}>É rápido e simples</p>
+          <p className={style.titlePara}>É rápido, simples e seguro</p>
         </div>
         <div className={style.input}>
           <label for="email" className={style.labelStyle}>
@@ -129,7 +130,7 @@ function Login() {
           onClick={() => {
             setIndex(2)
           }}
-          disabled={!email.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/)}
+          disabled={!email.match(/^\w+([.-]?\w+)@/)}
           className={style.signupButton}
         >
           Continuar
@@ -205,7 +206,7 @@ function Login() {
         <button
           disabled={
             password != confirmPassword ||
-            !email.match(/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/) ||
+            !email.match(/^\w+([.-]?\w+)@/) ||
             !password ||
             !name
           }

@@ -26,6 +26,8 @@ function Router() {
   useEffect(() => {
     if (!user && token) {
       getUser()
+    } else if (!token) {
+      navigate('/')
     }
   }, [token, user])
 

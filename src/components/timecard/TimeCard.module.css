@@ -7,6 +7,10 @@
   border-radius: 4px;
 }
 
+.container:hover {
+  cursor: pointer;
+}
+
 .timeAvaiable {
   display: flex;
   justify-content: center;

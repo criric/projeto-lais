@@ -1,6 +1,8 @@
+import style from './ModalAgenda.module.css'
+
 function ModalAgenda() {
   return (
-    <div>
+    <div className={style.modal}>
       <p>alo</p>
     </div>
   )

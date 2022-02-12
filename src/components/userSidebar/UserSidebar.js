@@ -7,17 +7,10 @@ import style from './UserSidebar.module.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 function UserSidebar() {
-  const [loged, setLoged] = useState(true)
   const { user } = useContext(Context)
   const navigate = useNavigate()
   const location = useLocation()
-  const logout = () => {
-    if (loged) {
-      setLoged(false)
-      localStorage.removeItem('token')
-      navigate('/')
-    }
-  }
+
   return (
     <aside className={style.container}>
       <div className={style.divContainer}>
@@ -72,7 +65,8 @@ function UserSidebar() {
         </div>
         <button
           onClick={() => {
-            logout()
+            localStorage.removeItem('token')
+            navigate('/')
           }}
         >
           Sair

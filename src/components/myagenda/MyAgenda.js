@@ -1,7 +1,7 @@
 import { Vacina, Calendar, Clock, MapMarker } from '../../assets/Icons'
 import style from './MyAgenda.module.css'
 
-function MyAgenda({ data, local, hora, status }) {
+function MyAgenda({ data, local, hora, status, tipo, onCancel }) {
   return (
     <div className={style.container}>
       <div className={style.initialInformation}>
@@ -9,7 +9,7 @@ function MyAgenda({ data, local, hora, status }) {
           <Vacina />
           <div>
             <h6 className={style.type}>Tipo de exame </h6>
-            <h6 className={style.specificType}>Tipo</h6>
+            <h6 className={style.specificType}>{tipo}</h6>
           </div>
         </div>
         <h6>{status}</h6>
@@ -30,10 +30,14 @@ function MyAgenda({ data, local, hora, status }) {
           </div>
         </div>
       </div>
-      <div className={style.buttons}>
-        <button className={style.detailButton}>Detalhes</button>
-        <button className={style.cancelButton}>Cancelar</button>
-      </div>
+      {status === 'AGENDADO' && (
+        <div className={style.buttons}>
+          <button className={style.detailButton}>Detalhes</button>
+          <button className={style.cancelButton} onClick={onCancel}>
+            Cancelar
+          </button>
+        </div>
+      )}
     </div>
   )
 }

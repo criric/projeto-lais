@@ -23,8 +23,12 @@ function Agendar() {
   const [filterCampanha, setFilterCampanha] = useState()
   const [filterGrupo, setFilterGrupo] = useState()
   const [filterMunicipio, setFilterMunicipio] = useState()
-  const [tipoExame, setTipoExame] = useState()
+  const [tipoExame, setTipoExame] = useState('RT-PC')
   const [agendamentos, setAgendamentos] = useState()
+  const [localizacao, setLocalizacao] = useState()
+  const [hora, setHora] = useState()
+  const [itemSelected, setItemSelected] = useState()
+  const [comprovante, setComprovante] = useState(false)
   const { user } = useContext(Context)
 
   const getCampanha = async () => {
@@ -79,12 +83,27 @@ function Agendar() {
         campanha_id: filterCampanha.id,
         grupo_atendimento_id: filterGrupo.id,
         municipio: filterMunicipio,
-        // localizacao:
+        localizacao: localizacao,
         data: filterData,
-        // hora:
+        hora: hora,
         status: 'AGENDADO',
         tipo_exame: tipoExame
       })
+      // console.log({
+      //   usuario_id: user.id,
+      //   campanha_id: filterCampanha.id,
+      //   grupo_atendimento_id: filterGrupo.id,
+      //   municipio: filterMunicipio,
+      //   localizacao: localizacao,
+      //   data: filterData,
+      //   hora: hora,
+      //   status: 'AGENDADO',
+      //   tipo_exame: tipoExame
+      // })
+
+      // if (response) {
+      //   setComprovante(true)
+      // }
     } catch (error) {
       toast.error(error.response.data)
     }
@@ -262,7 +281,6 @@ function Agendar() {
       </div>
     </div>
   )
-
   return (
     <UserLayout className={style.container}>
       <FilterCard />
@@ -283,19 +301,28 @@ function Agendar() {
                 camp={campanhas}
                 disp={Object.entries(item.vagas)}
               >
-                {Object.entries(item.vagas).map((item, j) => {
-                  return <TimeCard key={j} disp={item} />
+                {Object.entries(item.vagas).map((vagas, j) => {
+                  return (
+                    <TimeCard
+                      key={j}
+                      disp={vagas}
+                      onClick={() => {
+                        setLocalizacao(item.localizacao)
+                        setHora(vagas[0])
+                        setItemSelected({ id: item.id, hora: vagas })
+                      }}
+                      active={
+                        itemSelected?.id === item.id &&
+                        vagas[0] === itemSelected?.hora[0]
+                      }
+                    />
+                  )
                 })}
               </ItemCard>
             ))}
           </div>
           <div className={style.changePage}>
-            <button
-              className={style.aplicarFiltro}
-              onClick={() => {
-                postAgendamento()
-              }}
-            >
+            <button className={style.aplicarFiltro} onClick={postAgendamento}>
               Continuar
             </button>
             <ReactPaginate
@@ -310,6 +337,7 @@ function Agendar() {
           </div>
         </div>
       )}
+      {comprovante && <ModalAgenda />}
     </UserLayout>
   )
 }
