@@ -8,8 +8,8 @@ Caso sua versão seja anterior a versão utilizada no projeto, utilize o nvm par
 ### `https://github.com/coreybutler/nvm-windows/releases/`
 Baixe o arquivo nvm-setup.zip e instale o nvm na sua máquina.
 Abra seu console como administrador, execute os seguintes comandos:
-### nvm install (versão do node desejada)
-### nvm use (versão do node desejada)
+### `nvm install (versão do node desejada)`
+### `nvm use (versão do node desejada)`
 
 Caso tudo dê certo, siga as instruções abaixo:
 
