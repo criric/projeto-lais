@@ -12,7 +12,9 @@ function MyAgenda({ data, local, hora, status, tipo, onCancel, onClick }) {
             <h6 className={style.specificType}>{tipo}</h6>
           </div>
         </div>
-        <h6>{status}</h6>
+        <h6 style={{ color: status === 'AGENDADO' ? '#00CF9F' : '#DC2626' }}>
+          {status}
+        </h6>
       </div>
       <div className={style.information}>
         <div className={style.local}>

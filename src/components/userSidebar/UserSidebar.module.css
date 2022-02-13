@@ -16,7 +16,9 @@
   font: normal normal bold 16px/26px Poppins;
   display: flex;
   align-items: center;
-  max-width: 119px;
+  gap: 15px;
+  max-width: 225px;
+  /* height: 49px; */
   margin-bottom: 60px;
 }
 

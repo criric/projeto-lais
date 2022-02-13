@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react'
 import AsideLayouts from '../../layouts/asidelayouts/AsideLayouts'
 import style from './graphs.module.css'
 import { useNavigate } from 'react-router-dom'
-import React, { Component } from 'react'
-import { render } from '@testing-library/react'
+import React from 'react'
 
 function Graphs() {
   const [vacinaRecebida, setvacinaRecebida] = useState()
@@ -27,7 +26,6 @@ function Graphs() {
     getTransparencia()
   }, [])
 
-  console.log(vacinadosGeral)
   return (
     <AsideLayouts>
       <div className={style.container}>
@@ -46,51 +44,92 @@ function Graphs() {
           </div>
         </div>
 
-        <ApexChart
-          options={{
-            chart: { id: 'basicBar' },
-            labels: ['Coronavac', 'Pfizer']
-          }}
-          series={[
-            parseInt(vacinaRecebida?.coronavac?.replace('%', '')),
-            parseInt(vacinaRecebida?.pfizer?.replace('%', ''))
-          ]}
-          type="pie"
-          width="300"
-        />
-        {dosesAplicada?.length > 0 && (
-          <div className="app">
-            <div className="row">
-              <div className="mixed-chart">
-                <ApexChart
-                  options={{
-                    chart: {
-                      id: 'basic-bar',
-                      type: 'bar'
-                    },
-                    xaxis: {
-                      categories: dosesAplicada.map(item => item.faixa)
-                    }
-                  }}
-                  series={dosesAplicada.reduce(
-                    (acc, curr, index) => {
-                      Object.values(curr.doses).forEach((item, index) =>
-                        acc[index].data.push(item)
-                      )
-                      return acc
-                    },
-                    dosesAplicada.map((item, i) => ({
-                      name: Object.keys(item.doses)[i],
-                      data: []
-                    }))
-                  )}
-                  type="bar"
-                  width="500"
-                />
+        <div className={style.graphsContainer}>
+          <ApexChart
+            options={{
+              chart: { id: 'basicBar' },
+              labels: ['Coronavac', 'Pfizer']
+            }}
+            series={[
+              parseInt(vacinaRecebida?.coronavac?.replace('%', '')),
+              parseInt(vacinaRecebida?.pfizer?.replace('%', ''))
+            ]}
+            type="pie"
+            width="300"
+          />
+          {dosesAplicada?.length > 0 && (
+            <div className="app">
+              <div className="row">
+                <div className="mixed-chart">
+                  <ApexChart
+                    options={{
+                      chart: {
+                        id: 'basic-bar',
+                        type: 'bar'
+                      },
+                      xaxis: {
+                        categories: dosesAplicada.map(item => item.faixa)
+                      }
+                    }}
+                    series={dosesAplicada.reduce(
+                      (acc, curr) => {
+                        Object.values(curr.doses).forEach((item, index) =>
+                          acc[index].data.push(item)
+                        )
+                        return acc
+                      },
+                      dosesAplicada.map((item, i) => ({
+                        name: Object.keys(item.doses)[i],
+                        data: []
+                      }))
+                    )}
+                    type="bar"
+                    width="500"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {vacinadosGeral?.length > 0 && (
+            <ApexChart
+              series={[
+                {
+                  name: 'Vacinados',
+                  data: vacinadosGeral.reduce((acc, curr, index) => {
+                    Object.values(curr.doses).forEach(
+                      (value, index) => (acc[index] += value)
+                    )
+
+                    return acc
+                  }, new Array(vacinadosGeral.length).fill(0))
+                }
+              ]}
+              options={{
+                chart: {
+                  type: 'bar',
+                  height: 350
+                },
+                plotOptions: {
+                  bar: {
+                    borderRadius: 4,
+                    horizontal: true
+                  }
+                },
+                dataLabels: {
+                  enabled: false
+                },
+                xaxis: {
+                  categories: vacinadosGeral?.map(
+                    (item, i) => Object.keys(item.doses)[i]
+                  )
+                }
+              }}
+              type="bar"
+              height={350}
+            />
+          )}
+        </div>
       </div>
 
       {/*

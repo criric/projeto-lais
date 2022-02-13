@@ -30,6 +30,7 @@ function UserSidebar() {
     >
       <div className={style.divContainer}>
         <div className={style.iconAgenda}>
+          <Agenda />
           <p>Agendamento Online</p>
         </div>
         <div className={style.userProfile}>

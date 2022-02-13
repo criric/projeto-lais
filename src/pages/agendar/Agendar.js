@@ -239,6 +239,7 @@ function Agendar() {
               setFilterData(`${dateArray[1]}-${dateArray[2]}-${dateArray[0]}`)
             }}
             value={filterData ? format(new Date(filterData), 'yyyy-MM-dd') : ''}
+            className={style.dataPicker}
           />
         </div>
 

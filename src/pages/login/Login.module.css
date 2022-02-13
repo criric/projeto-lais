@@ -75,20 +75,63 @@
   cursor: pointer;
 }
 
-.modal {
+.modalContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.backDrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalContent {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  background-color: #fefefe;
+  border-radius: 4px;
+  padding: 20px;
+  max-width: 1058px;
+  width: 80%;
+  padding-top: 40px;
+  padding-left: 60px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.modalContent {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  width: 80%;
+.modalContent p {
+  color: #4a4a4a;
+}
+
+.modalCloseButtonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modalCloseButton {
+  background-color: transparent;
+  border: 1px solid #ababab;
+  border-radius: 4px;
+  height: 48px;
+  width: 193px;
+  cursor: pointer;
 }
 
 .labelStyle {

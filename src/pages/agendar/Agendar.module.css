@@ -124,3 +124,12 @@
   border: 1px solid #f72585;
   color: #f72585;
 }
+
+.dataPicker {
+  width: 232px;
+  height: 37px;
+  color: #3a0ca3;
+  border: 1px solid #3a0ca3;
+  padding-left: 14px;
+  border-radius: 4px;
+}

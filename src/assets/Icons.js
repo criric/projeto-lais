@@ -293,3 +293,59 @@ export function PagePrevious() {
     </svg>
   )
 }
+
+export function Agenda() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="36.41"
+      height="36.41"
+      viewBox="0 0 90.082 90.424"
+    >
+      <path
+        id="Caminho_14"
+        data-name="Caminho 14"
+        d="M12.842,6h58.4a8.342,8.342,0,0,1,8.342,8.342v58.4a8.342,8.342,0,0,1-8.342,8.342h-58.4A8.342,8.342,0,0,1,4.5,72.739v-58.4A8.342,8.342,0,0,1,12.842,6Z"
+        transform="translate(0 5.342)"
+        fill="none"
+        stroke="#3A0CA3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="6"
+      />
+      <path
+        id="Caminho_15"
+        data-name="Caminho 15"
+        d="M24,3V19.685"
+        transform="translate(34.726 0)"
+        fill="none"
+        stroke="#3A0CA3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="6"
+      />
+      <path
+        id="Caminho_16"
+        data-name="Caminho 16"
+        d="M12,3V19.685"
+        transform="translate(13.356 0)"
+        fill="none"
+        stroke="#3A0CA3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="6"
+      />
+      <path
+        id="Caminho_17"
+        data-name="Caminho 17"
+        d="M4.5,15H79.582"
+        transform="translate(0 21.37)"
+        fill="none"
+        stroke="#3A0CA3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="6"
+      />
+    </svg>
+  )
+}
