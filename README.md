@@ -1,9 +1,6 @@
 ## Esse projeto é um desafio feito em um Processo Seletivo para o LAIS - HUOL
 
 Para executar o projeto é necessario estar utilizando o node v14.18.1.
-<<<<<<< HEAD
-Para saber a versão instalada no seu dispositivo, execute
-=======
 Para saber a versão instalada no seu dispositivo, execute o comando:
 
 ### `node -v`
@@ -21,9 +18,17 @@ Abra seu console como administrador, execute os seguintes comandos:
 
 Caso tudo dê certo, siga as instruções abaixo:
 
-> > > > > > > 6d08e8c5e76d57755d3fba5a6bc7657e1fa34704
+Primeiro clone a API encontrada no repositório abaixo:
 
-Primeiro clone o projeto utilizando o comando
+### `https://github.com/rayronvictor/agendamento-exames-edital-05-22`
+
+Depois, no respositório da API, utilize os comandos abaixo para instalar e executar, respectivamente:
+
+### `npm install`
+
+### `npm start`
+
+Agora clone o projeto utilizando o comando
 
 ### `git clone (link do repositório)`
 
@@ -35,4 +40,4 @@ Ao terminar a instalação, execute o comando:
 
 ### `npm start`
 
-Para executar.
+para executar.
