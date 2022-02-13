@@ -4,8 +4,7 @@ Primeiro clone o projeto utilizando o comando
 
 ### `git clone (link do repositório)`
 
-Vá para o repositório do clone
-No repositório execute o seguinte comando para instalar as dependências
+Vá para o repositório do clone. No repositório execute o seguinte comando para instalar as dependências
 
 ### `npm install`
 
