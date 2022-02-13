@@ -2,7 +2,7 @@
 
 Para executar o projeto é necessario estar utilizando o node v14.18.1.
 Para saber a versão instalada no seu dispositivo, execute o comando:
-# `node -v`
+### `node -v`
 
 Primeiro clone o projeto utilizando o comando
 
