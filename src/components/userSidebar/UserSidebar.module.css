@@ -2,10 +2,12 @@
   width: 100%;
   height: 100%;
   border-right: 1px solid #f72585;
+  box-shadow: 0px 3px 6px #00000029;
   overflow: hidden;
 }
 
 .divContainer {
+  position: relative;
   padding: 26px;
 }
 
@@ -98,6 +100,11 @@
 }
 
 .arrowMenu {
+  position: absolute;
+  left: 20;
+  top: 60%;
+  background-color: white;
+  width: 200px;
   display: flex;
   flex-direction: column;
   border: 1px solid #f72585;

@@ -69,29 +69,32 @@
 }
 
 .vagasContainer {
-  /* display: flex;
-  flex-direction: column; */
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 4px;
   max-width: 981px;
   max-height: 1222px;
-  /* min-width: 981px;
-  min-height: 1222px; */
   margin-left: 106px;
-  padding-left: 45px;
+  padding: 45px;
   padding-top: 37px;
   margin-top: 119px;
+}
+.changePage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .pagination {
   list-style: none;
   display: flex;
-  justify-content: flex-end;
-  margin-top: 27px;
+  justify-content: center;
+  align-items: center;
+  color: #3a0ca3;
+  margin-left: 10px;
 }
 
-.pagination li {
+.pagination li a:not(.activePage) {
   border: 1px solid #d1d5db;
   width: 55px;
   height: 47px;
@@ -100,7 +103,7 @@
   justify-content: center;
 }
 
-.pagination li:hover {
+.pagination li {
   cursor: pointer;
 }
 
@@ -113,7 +116,7 @@
   border-radius: 4px;
 }
 
-.changePage {
-  display: flex;
-  align-items: center;
+.activePage {
+  border: 1px solid #f72585;
+  color: #f72585;
 }

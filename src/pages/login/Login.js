@@ -62,7 +62,9 @@ function Login() {
   const steps = [
     <div className={style.loginContainer}>
       <div className={style.loginContent}>
-        <p style={{ color: '#f72585' }}>Preencha os campos abaixo</p>
+        <p style={{ color: '#f72585', marginBottom: '20px' }}>
+          Preencha os campos abaixo
+        </p>
         <div className={style.formStyle}>
           <div className={style.input}>
             <label className={style.labelStyle} for="email">
@@ -107,8 +109,8 @@ function Login() {
       </div>
     </div>,
 
-    <div className={style.loginContainer}>
-      <div className={style.loginContent}>
+    <div className={style.loginSecondContainer}>
+      <div className={style.loginSecondContent}>
         <div className={style.title}>
           <h3 style={{ color: '#f72585' }}>Preencha os campos abaixo</h3>
           <p className={style.titlePara}>É rápido, simples e seguro</p>

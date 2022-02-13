@@ -7,7 +7,7 @@ import UserLayout from '../../layouts/userLayouts/UserLayouts'
 import ReactPaginate from 'react-paginate'
 import ItemCard from '../../components/itemcard/ItemCard'
 import TimeCard from '../../components/timecard/TimeCard'
-import { rightArrow } from '../../assets/Icons'
+import { rightArrow, PageNext, PagePrevious } from '../../assets/Icons'
 import MyAgenda from '../../components/myagenda/MyAgenda'
 import { Context } from '../../contexts/userContext'
 import ModalAgenda from '../../components/modalagenda/ModalAgenda'
@@ -28,7 +28,7 @@ function Agendar() {
   const [localizacao, setLocalizacao] = useState()
   const [hora, setHora] = useState()
   const [itemSelected, setItemSelected] = useState()
-  const [comprovante, setComprovante] = useState(false)
+  const [comprovante, setComprovante] = useState()
   const { user } = useContext(Context)
 
   const getCampanha = async () => {
@@ -78,7 +78,7 @@ function Agendar() {
 
   const postAgendamento = async () => {
     try {
-      const response = await Api.axios.post('/agendamentos', {
+      const agendamentoData = {
         usuario_id: user.id,
         campanha_id: filterCampanha.id,
         grupo_atendimento_id: filterGrupo.id,
@@ -88,10 +88,11 @@ function Agendar() {
         hora: hora,
         status: 'AGENDADO',
         tipo_exame: tipoExame
-      })
+      }
+      const response = await Api.axios.post('/agendamentos', agendamentoData)
 
       if (response) {
-        setComprovante(true)
+        setComprovante(agendamentoData)
       }
     } catch (error) {
       toast.error(error.response.data)
@@ -142,7 +143,6 @@ function Agendar() {
       toast.error(error.response.data)
     }
   }
-
   useEffect(() => {
     if (disponibilidades) renderByPagination(0)
   }, [disponibilidades])
@@ -231,22 +231,14 @@ function Agendar() {
           <label for="date" className={style.filterTitle}>
             Data
           </label>
-          <select
-            id="date"
-            className={style.select}
+          <input
+            type="date"
             onChange={event => {
-              setFilterData(event.target.value)
+              const dateArray = event.target.value.split('-')
+              setFilterData(`${dateArray[1]}-${dateArray[2]}-${dateArray[0]}`)
             }}
-            value={filterData}
-          >
-            {datas.map((data, i) => {
-              return (
-                <option key={i} value={data}>
-                  {format(new Date(data), 'dd/MM/yyyy')}
-                </option>
-              )
-            })}
-          </select>
+            value={filterData ? format(new Date(filterData), 'yyyy-MM-dd') : ''}
+          />
         </div>
 
         <div className={style.individualFilter}>
@@ -298,68 +290,74 @@ function Agendar() {
     </div>
   )
   return (
-    <UserLayout className={style.container}>
+    <UserLayout>
       <FilterCard />
-      {itemPage.length > 0 && (
-        <div className={style.vagasContainer}>
-          <div>
-            <h3 className={style.cardTitle}>
-              Locais de exames
-              {!!filterData &&
-                ` - ${format(new Date(filterData), 'dd/MM/yyyy')}`}
-            </h3>
-          </div>
-          <div className={style.horariosDisponiveis}>
-            {itemPage.map((item, i) => (
-              <ItemCard
-                key={i}
-                local={item.localizacao}
-                camp={campanhas}
-                disp={Object.entries(item.vagas)}
-              >
-                {Object.entries(item.vagas).map((vagas, j) => {
-                  return (
-                    <TimeCard
-                      key={j}
-                      disp={vagas}
-                      onClick={() => {
-                        setLocalizacao(item.localizacao)
-                        setHora(vagas[0])
-                        setItemSelected({ id: item.id, hora: vagas })
-                      }}
-                      active={
-                        itemSelected?.id === item.id &&
-                        vagas[0] === itemSelected?.hora[0]
-                      }
-                    />
-                  )
-                })}
-              </ItemCard>
-            ))}
-          </div>
-          <div className={style.changePage}>
-            <button className={style.aplicarFiltro} onClick={postAgendamento}>
-              Continuar
-            </button>
-            <ReactPaginate
-              initialPage={0}
-              pageRangeDisplayed={5}
-              pageCount={disponibilidades.length / 3}
-              onPageChange={({ selected }) => renderByPagination(selected)}
-              nextLabel=">"
-              previousLabel="<"
-              className={style.pagination}
-            />
-          </div>
-        </div>
-      )}
+      <div className={style.vagasContainer}>
+        {itemPage?.length > 0 ? (
+          <>
+            <div>
+              <h3 className={style.cardTitle}>
+                Locais de exames
+                {!!itemPage[0]?.data &&
+                  ` - ${format(new Date(itemPage[0]?.data), 'dd/MM/yyyy')}`}
+              </h3>
+            </div>
+            <div className={style.horariosDisponiveis}>
+              {itemPage.map((item, i) => (
+                <ItemCard
+                  key={i}
+                  local={item.localizacao}
+                  camp={campanhas}
+                  disp={Object.entries(item.vagas)}
+                >
+                  {Object.entries(item.vagas).map((vagas, j) => {
+                    return (
+                      <TimeCard
+                        key={j}
+                        disp={vagas}
+                        onClick={() => {
+                          setLocalizacao(item.localizacao)
+                          setHora(vagas[0])
+                          setItemSelected({ id: item.id, hora: vagas })
+                        }}
+                        active={
+                          itemSelected?.id === item.id &&
+                          vagas[0] === itemSelected?.hora[0]
+                        }
+                      />
+                    )
+                  })}
+                </ItemCard>
+              ))}
+            </div>
+            <div className={style.changePage}>
+              <button className={style.aplicarFiltro} onClick={postAgendamento}>
+                Continuar
+              </button>
+              <ReactPaginate
+                initialPage={0}
+                pageRangeDisplayed={1}
+                pageCount={disponibilidades.length / 3}
+                activeClassName={style.activePage}
+                onPageChange={({ selected }) => renderByPagination(selected)}
+                nextLabel={<PageNext />}
+                previousLabel={<PagePrevious />}
+                // previousLinkClassName={style.}
+                className={style.pagination}
+              />
+            </div>
+          </>
+        ) : (
+          <span>Não foi encontrado</span>
+        )}
+      </div>
       {comprovante && (
         <ModalAgenda
-          data={filterData}
-          hora={hora}
-          status="Agendado"
-          // local={filterMunicipio}
-          onClick={() => setComprovante(false)}
+          data={format(new Date(comprovante.data), 'dd/MM/yyyy')}
+          hora={comprovante.hora}
+          status={comprovante.status}
+          local={comprovante.localizacao}
+          onClick={() => setComprovante(null)}
           onCancel={() => handleCancelAgenda(itemSelected.id)}
         />
       )}

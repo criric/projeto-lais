@@ -13,12 +13,21 @@ import style from './UserSidebar.module.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 function UserSidebar() {
+  const [profile, setProfile] = useState(false)
   const { user } = useContext(Context)
   const navigate = useNavigate()
   const location = useLocation()
 
   return (
-    <aside className={style.container}>
+    <aside
+      className={style.container}
+      onMouseLeave={() => {
+        const timeOut = setTimeout(() => {
+          setProfile(false)
+          clearTimeout(timeOut)
+        }, 2000)
+      }}
+    >
       <div className={style.divContainer}>
         <div className={style.iconAgenda}>
           <p>Agendamento Online</p>
@@ -30,7 +39,10 @@ function UserSidebar() {
               <p className={style.welcome}>Seja bem-vindo</p>
               <p className={style.userName}>{user?.nome}</p>
             </div>
-            <div className={style.arrow}>
+            <div
+              className={style.arrow}
+              onMouseEnter={() => !profile && setProfile(true)}
+            >
               <ArrowDown />
             </div>
           </div>
@@ -73,22 +85,29 @@ function UserSidebar() {
             Agendar
           </button>
         </div>
-        <div className={style.arrowMenu}>
-          <button className={style.profileButton}>
-            <Profile />
-            Meu perfil
-          </button>
-          <button
-            onClick={() => {
-              localStorage.removeItem('token')
-              navigate('/')
+        {profile && (
+          <div
+            className={style.arrowMenu}
+            onMouseEnter={() => {
+              setProfile(true)
             }}
-            className={style.profileButton}
           >
-            <LogOut />
-            Sair
-          </button>
-        </div>
+            <button className={style.profileButton}>
+              <Profile />
+              Meu perfil
+            </button>
+            <button
+              onClick={() => {
+                localStorage.removeItem('token')
+                navigate('/')
+              }}
+              className={style.profileButton}
+            >
+              <LogOut />
+              Sair
+            </button>
+          </div>
+        )}
       </div>
     </aside>
   )

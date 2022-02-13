@@ -86,10 +86,10 @@
   list-style: none;
   display: flex;
   justify-content: flex-end;
-  margin-top: 27px;
+  color: #3a0ca3;
 }
 
-.pagination li {
+.pagination li a {
   border: 1px solid #d1d5db;
   width: 55px;
   height: 47px;
@@ -100,4 +100,9 @@
 
 .pagination li:hover {
   cursor: pointer;
+}
+
+.activePage {
+  border: 1px solid #f72585;
+  color: #f72585;
 }

@@ -17,7 +17,7 @@ function Graphs() {
       setdosesAplicada(response.data.doses.aplicadas)
       setvacinadosGeral(response.data.vacinacao)
     } catch (e) {
-      console.log(e.response)
+      console.log(e.response.data)
     }
   }
 
@@ -55,20 +55,21 @@ function Graphs() {
           width="300"
         />
       </div>
-      {/* <ApexChart
-        options={{
-          chart: { id: 'basicBar' },
-          xaxis: [
-            dosesAplicada.map(item => {
-              console.log(item.faixa)
-              return item.faixa
-            })
-          ]
-        }}
-        series={[10, 15, 13]}
-        type="bar"
-        width="500"
-      />
+      {
+        <ApexChart
+          options={{
+            chart: { id: 'basicBar' },
+            xaxis: [
+              dosesAplicada.map(item => {
+                return item.faixa
+              })
+            ]
+          }}
+          series={[10, 15, 13]}
+          type="bar"
+          width="500"
+        />
+        /*
       <ApexChart
         options={{ chart: { id: 'basicBar' }, labels: ['Coronavac', 'Pfizer'] }}
         series={[
@@ -77,7 +78,8 @@ function Graphs() {
         ]}
         type="pie"
         width="250"
-      /> */}
+      /> */
+      }
     </AsideLayouts>
   )
 }

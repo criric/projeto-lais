@@ -30,7 +30,6 @@ function Agendamentos() {
       toast.error(error.response.data)
     }
   }
-  console.log(user)
   const renderByPagination = page => {
     const firstIndexItem = page * 4
     const pagedItem = agendamentos.slice(firstIndexItem, firstIndexItem + 4)
@@ -56,12 +55,11 @@ function Agendamentos() {
     if (agendamentos) renderByPagination(0)
   }, [agendamentos])
   useEffect(() => {
-    getAgendamentos()
-  }, [])
-  console.log(itemPage)
+    if (user) getAgendamentos()
+  }, [user])
   return (
     <UserLayout>
-      <div>
+      <div style={{ width: '100%' }}>
         <h3 className={style.title}>Meus agendamentos</h3>
         <div className={style.filterMyAgenda}>
           <p>Filtrar agendamento</p>
@@ -80,7 +78,7 @@ function Agendamentos() {
             itemPage.map(item => {
               return (
                 <MyAgenda
-                  data={item.data}
+                  data={format(new Date(item.data), 'dd/MM/yyyy')}
                   local={item.localizacao}
                   hora={item.hora}
                   status={item.status}
@@ -93,8 +91,9 @@ function Agendamentos() {
         </div>
         <ReactPaginate
           initialPage={0}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={3}
           pageCount={agendamentos.length / 4}
+          activeClassName={style.activePage}
           onPageChange={({ selected }) => renderByPagination(selected)}
           nextLabel=">"
           previousLabel="<"

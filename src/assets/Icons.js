@@ -247,3 +247,49 @@ export function LogOut() {
     </svg>
   )
 }
+
+export function PageNext() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="9.194"
+      height="15.387"
+      viewBox="0 0 9.194 15.387"
+    >
+      <path
+        id="Icon_feather-chevron-left"
+        data-name="Icon feather-chevron-left"
+        d="M13.5,20.145l5.572-5.572L13.5,9"
+        transform="translate(-11.379 -6.879)"
+        fill="none"
+        stroke="#3a0ca3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="3"
+      />
+    </svg>
+  )
+}
+
+export function PagePrevious() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="9.194"
+      height="15.387"
+      viewBox="0 0 9.194 15.387"
+    >
+      <path
+        id="Icon_feather-chevron-left"
+        data-name="Icon feather-chevron-left"
+        d="M19.072,20.145,13.5,14.572,19.072,9"
+        transform="translate(-12 -6.879)"
+        fill="none"
+        stroke="#3a0ca3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="3"
+      />
+    </svg>
+  )
+}
