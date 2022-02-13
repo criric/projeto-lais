@@ -1,5 +1,6 @@
 .container {
   display: grid;
+  position: relative;
   grid-template-columns: 279px calc(100vw - 360px);
   height: 100vh;
 }

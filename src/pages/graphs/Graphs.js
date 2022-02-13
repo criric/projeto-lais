@@ -27,6 +27,7 @@ function Graphs() {
     getTransparencia()
   }, [])
 
+  console.log(vacinadosGeral)
   return (
     <AsideLayouts>
       <div className={style.container}>
@@ -71,15 +72,18 @@ function Graphs() {
                       categories: dosesAplicada.map(item => item.faixa)
                     }
                   }}
-                  series={dosesAplicada.reduce((acc, curr, index) => {
-                    const seila = {
-                      name: Object.entries(curr.doses)[index][0],
-                      data: Object.entries(curr.doses)[index][1]
-                    }
-                    console.log(Object.entries(curr.doses))
-                    // acc.push()
-                    // return acc
-                  }, [])}
+                  series={dosesAplicada.reduce(
+                    (acc, curr, index) => {
+                      Object.values(curr.doses).forEach((item, index) =>
+                        acc[index].data.push(item)
+                      )
+                      return acc
+                    },
+                    dosesAplicada.map((item, i) => ({
+                      name: Object.keys(item.doses)[i],
+                      data: []
+                    }))
+                  )}
                   type="bar"
                   width="500"
                 />

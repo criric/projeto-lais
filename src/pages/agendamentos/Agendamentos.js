@@ -13,7 +13,7 @@ import ModalAgenda from '../../components/modalagenda/ModalAgenda'
 function Agendamentos() {
   const [agendamentos, setAgendamentos] = useState([])
   const [itemPage, setItemPage] = useState()
-  const [comprovante, setComprovante] = useState(false)
+  const [comprovante, setComprovante] = useState()
 
   const { user } = useContext(Context)
 
@@ -44,6 +44,7 @@ function Agendamentos() {
       })
       if (response) {
         getAgendamentos()
+        setComprovante(null)
         toast.success('Agendamento cancelado com sucesso')
       }
     } catch (error) {
@@ -84,7 +85,7 @@ function Agendamentos() {
                   status={item.status}
                   tipo={item.tipo_exame}
                   onCancel={() => handleCancelAgenda(item.id)}
-                  onClick={() => setComprovante(true)}
+                  onClick={() => setComprovante(item)}
                 />
               )
             })}
@@ -100,7 +101,17 @@ function Agendamentos() {
           className={style.pagination}
         />
       </div>
-      {comprovante && <ModalAgenda />}
+      {comprovante && (
+        <ModalAgenda
+          data={format(new Date(comprovante.data), 'dd/MM/yyyy')}
+          hora={comprovante.hora}
+          status={comprovante.status}
+          local={comprovante.localizacao}
+          nome={user?.nome}
+          onClick={() => setComprovante(null)}
+          onCancel={() => handleCancelAgenda(comprovante.id)}
+        />
+      )}
     </UserLayout>
   )
 }

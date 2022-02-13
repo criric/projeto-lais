@@ -2,7 +2,8 @@ import style from './ModalAgenda.module.css'
 
 function ModalAgenda({ data, hora, status, local, nome, onClick, onCancel }) {
   return (
-    <div className={style.modal}>
+    <div className={style.container}>
+      <div className={style.backDrop} />
       <div className={style.modalContent}>
         <h1 className={style.title}>Comprovante de agendamento</h1>
         <div className={style.initialInformation}>

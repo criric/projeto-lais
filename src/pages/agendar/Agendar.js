@@ -90,9 +90,9 @@ function Agendar() {
         tipo_exame: tipoExame
       }
       const response = await Api.axios.post('/agendamentos', agendamentoData)
-
       if (response) {
-        setComprovante(agendamentoData)
+        toast.success('Agendado com sucesso')
+        setComprovante(response.data)
       }
     } catch (error) {
       toast.error(error.response.data)
@@ -137,6 +137,7 @@ function Agendar() {
       })
       if (response) {
         getAgendamentos()
+        setComprovante(null)
         toast.success('Agendamento cancelado com sucesso')
       }
     } catch (error) {
@@ -362,7 +363,7 @@ function Agendar() {
           local={comprovante.localizacao}
           nome={user?.nome}
           onClick={() => setComprovante(null)}
-          onCancel={() => handleCancelAgenda(itemSelected.id)}
+          onCancel={() => handleCancelAgenda(comprovante.id)}
         />
       )}
     </UserLayout>
