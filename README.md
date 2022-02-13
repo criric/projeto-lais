@@ -40,4 +40,4 @@ Ao terminar a instalação, execute o comando:
 
 ### `npm start`
 
-para executar.
+para executar. Espero que goste.
