@@ -6,12 +6,16 @@ import style from './graphs.module.css'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import { toast } from 'react-toastify'
+import GraphFilter from '../../components/graphfilter/GraphFilter'
 
 function Graphs() {
   const [vacinaRecebida, setvacinaRecebida] = useState()
   const [dosesAplicada, setdosesAplicada] = useState()
   const [vacinadosGeral, setvacinadosGeral] = useState()
+  const [filter, setFilter] = useState()
+
   const navigate = useNavigate()
+
   const getTransparencia = async () => {
     try {
       const response = await Api.axios.get('/transparencia')
@@ -25,14 +29,16 @@ function Graphs() {
   const getAgendamentos = async () => {
     try {
       const response = await Api.axios.get('/agendamentos')
-      console.log(response.data)
+      if (response) {
+        setFilter(response.data)
+        toast.success('get feito')
+      }
     } catch (error) {
       toast.error(error.response.data)
     }
   }
 
   useEffect(() => {
-    getAgendamentos()
     getTransparencia()
   }, [])
 
@@ -42,7 +48,9 @@ function Graphs() {
         <div className={style.header}>
           <h3 className={style.transparencyTitle}>Transparência</h3>
           <div className={style.buttonContainer}>
-            <button className={style.buttons}>Filtrar</button>
+            <button className={style.buttons} onClick={getAgendamentos}>
+              Filtrar
+            </button>
             <button
               onClick={() => {
                 navigate('/')
@@ -57,7 +65,6 @@ function Graphs() {
         <div className={style.graphsContainer}>
           <div className={style.graph}>
             <h1>Doses recebidas</h1>
-
             <ApexChart
               options={{
                 chart: { id: 'basicBar' },
@@ -155,32 +162,8 @@ function Graphs() {
             )}
           </div>
         </div>
+        {/* <GraphFilter filter={filter} /> */}
       </div>
-
-      {/*
-        <ApexChart
-          options={{
-            chart: { id: 'basicBar' },
-            xaxis: [
-              dosesAplicada.map(item => {
-                return item.faixa
-              })
-            ]
-          }}
-          series={[10, 15, 13]}
-          type="bar"
-          width="500"
-        />
-        
-      <ApexChart
-        options={{ chart: { id: 'basicBar' }, labels: ['Coronavac', 'Pfizer'] }}
-        series={[
-          parseInt(vacinaRecebida?.coronavac?.replace('%', '')),
-          parseInt(vacinaRecebida?.pfizer?.replace('%', ''))
-        ]}
-        type="pie"
-        width="250"
-      /> */}
     </AsideLayouts>
   )
 }
