@@ -5,6 +5,7 @@ import AsideLayouts from '../../layouts/asidelayouts/AsideLayouts'
 import style from './graphs.module.css'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
+import { toast } from 'react-toastify'
 
 function Graphs() {
   const [vacinaRecebida, setvacinaRecebida] = useState()
@@ -21,8 +22,17 @@ function Graphs() {
       console.log(e.response.data)
     }
   }
+  const getAgendamentos = async () => {
+    try {
+      const response = await Api.axios.get('/agendamentos')
+      console.log(response.data)
+    } catch (error) {
+      toast.error(error.response.data)
+    }
+  }
 
   useEffect(() => {
+    getAgendamentos()
     getTransparencia()
   }, [])
 
@@ -45,90 +55,105 @@ function Graphs() {
         </div>
 
         <div className={style.graphsContainer}>
-          <ApexChart
-            options={{
-              chart: { id: 'basicBar' },
-              labels: ['Coronavac', 'Pfizer']
-            }}
-            series={[
-              parseInt(vacinaRecebida?.coronavac?.replace('%', '')),
-              parseInt(vacinaRecebida?.pfizer?.replace('%', ''))
-            ]}
-            type="pie"
-            width="300"
-          />
-          {dosesAplicada?.length > 0 && (
-            <div className="app">
-              <div className="row">
-                <div className="mixed-chart">
-                  <ApexChart
-                    options={{
-                      chart: {
-                        id: 'basic-bar',
-                        type: 'bar'
-                      },
-                      xaxis: {
-                        categories: dosesAplicada.map(item => item.faixa)
-                      }
-                    }}
-                    series={dosesAplicada.reduce(
-                      (acc, curr) => {
-                        Object.values(curr.doses).forEach((item, index) =>
-                          acc[index].data.push(item)
-                        )
-                        return acc
-                      },
-                      dosesAplicada.map((item, i) => ({
-                        name: Object.keys(item.doses)[i],
-                        data: []
-                      }))
-                    )}
-                    type="bar"
-                    width="500"
-                  />
+          <div className={style.graph}>
+            <h1>Doses recebidas</h1>
+
+            <ApexChart
+              options={{
+                chart: { id: 'basicBar' },
+                labels: ['Coronavac', 'Pfizer'],
+                colors: ['#F72585', '#3A0CA3']
+              }}
+              series={[
+                parseInt(vacinaRecebida?.coronavac?.replace('%', '')),
+                parseInt(vacinaRecebida?.pfizer?.replace('%', ''))
+              ]}
+              type="pie"
+              width="300"
+              height="250"
+            />
+          </div>
+          <div className={style.graph}>
+            <h1>Doses aplicadas</h1>
+            {dosesAplicada?.length > 0 && (
+              <div className="app">
+                <div className="row">
+                  <div className="mixed-chart">
+                    <ApexChart
+                      options={{
+                        chart: {
+                          id: 'basic-bar',
+                          type: 'bar'
+                        },
+                        xaxis: {
+                          categories: dosesAplicada.map(item => item.faixa)
+                        },
+                        colors: ['#7E1FB4', '#1FB451', '#1F78B4']
+                      }}
+                      series={dosesAplicada.reduce(
+                        (acc, curr) => {
+                          Object.values(curr.doses).forEach((item, index) =>
+                            acc[index].data.push(item)
+                          )
+                          return acc
+                        },
+                        dosesAplicada.map((item, i) => ({
+                          name: Object.keys(item.doses)[i],
+                          data: []
+                        }))
+                      )}
+                      type="bar"
+                      width="300"
+                      height="250"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+          <div className={style.graph}>
+            <h1>Vacinados geral</h1>
+            {vacinadosGeral?.length > 0 && (
+              <ApexChart
+                series={[
+                  {
+                    name: 'Vacinados',
+                    data: vacinadosGeral.reduce((acc, curr, index) => {
+                      Object.values(curr.doses).forEach(
+                        (value, index) => (acc[index] += value)
+                      )
 
-          {vacinadosGeral?.length > 0 && (
-            <ApexChart
-              series={[
-                {
-                  name: 'Vacinados',
-                  data: vacinadosGeral.reduce((acc, curr, index) => {
-                    Object.values(curr.doses).forEach(
-                      (value, index) => (acc[index] += value)
-                    )
-
-                    return acc
-                  }, new Array(vacinadosGeral.length).fill(0))
-                }
-              ]}
-              options={{
-                chart: {
-                  type: 'bar',
-                  height: 350
-                },
-                plotOptions: {
-                  bar: {
-                    borderRadius: 4,
-                    horizontal: true
+                      return acc
+                    }, new Array(vacinadosGeral.length).fill(0))
                   }
-                },
-                dataLabels: {
-                  enabled: false
-                },
-                xaxis: {
-                  categories: vacinadosGeral?.map(
-                    (item, i) => Object.keys(item.doses)[i]
-                  )
-                }
-              }}
-              type="bar"
-              height={350}
-            />
-          )}
+                ]}
+                options={{
+                  chart: {
+                    type: 'bar',
+                    height: 350
+                  },
+                  plotOptions: {
+                    bar: {
+                      borderRadius: 4,
+                      horizontal: true
+                    }
+                  },
+                  dataLabels: {
+                    enabled: false
+                  },
+                  xaxis: {
+                    categories: vacinadosGeral?.map(
+                      (item, i) => Object.keys(item.doses)[i]
+                    )
+                  },
+                  colors: ['#7E1FB4', '#1FB451', '#1F78B4']
+                }}
+                type="bar"
+                height="250"
+                width="380"
+              />
+            )}
+          </div>
         </div>
       </div>
 
