@@ -1,6 +1,6 @@
 import style from './ModalAgenda.module.css'
 
-function ModalAgenda({ data, hora, status, local, onClick, onCancel }) {
+function ModalAgenda({ data, hora, status, local, nome, onClick, onCancel }) {
   return (
     <div className={style.modal}>
       <div className={style.modalContent}>
@@ -33,8 +33,7 @@ function ModalAgenda({ data, hora, status, local, onClick, onCancel }) {
         </div>
         <div className={style.finalInformation}>
           <p style={{ fontWeight: 'bold' }}>
-            Cidadão:{' '}
-            <span style={{ fontWeight: 'normal' }}>José da Silva Sauro</span>
+            Cidadão: <span style={{ fontWeight: 'normal' }}>{nome}</span>
           </p>
           <p style={{ fontWeight: 'bold' }}>
             Localização: <span style={{ fontWeight: 'normal' }}>{local}</span>

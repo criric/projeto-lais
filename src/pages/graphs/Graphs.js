@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import AsideLayouts from '../../layouts/asidelayouts/AsideLayouts'
 import style from './graphs.module.css'
 import { useNavigate } from 'react-router-dom'
+import React, { Component } from 'react'
+import { render } from '@testing-library/react'
 
 function Graphs() {
   const [vacinaRecebida, setvacinaRecebida] = useState()
@@ -42,6 +44,7 @@ function Graphs() {
             </button>
           </div>
         </div>
+
         <ApexChart
           options={{
             chart: { id: 'basicBar' },
@@ -54,8 +57,39 @@ function Graphs() {
           type="pie"
           width="300"
         />
+        {dosesAplicada?.length > 0 && (
+          <div className="app">
+            <div className="row">
+              <div className="mixed-chart">
+                <ApexChart
+                  options={{
+                    chart: {
+                      id: 'basic-bar',
+                      type: 'bar'
+                    },
+                    xaxis: {
+                      categories: dosesAplicada.map(item => item.faixa)
+                    }
+                  }}
+                  series={dosesAplicada.reduce((acc, curr, index) => {
+                    const seila = {
+                      name: Object.entries(curr.doses)[index][0],
+                      data: Object.entries(curr.doses)[index][1]
+                    }
+                    console.log(Object.entries(curr.doses))
+                    // acc.push()
+                    // return acc
+                  }, [])}
+                  type="bar"
+                  width="500"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      {
+
+      {/*
         <ApexChart
           options={{
             chart: { id: 'basicBar' },
@@ -69,7 +103,7 @@ function Graphs() {
           type="bar"
           width="500"
         />
-        /*
+        
       <ApexChart
         options={{ chart: { id: 'basicBar' }, labels: ['Coronavac', 'Pfizer'] }}
         series={[
@@ -78,8 +112,7 @@ function Graphs() {
         ]}
         type="pie"
         width="250"
-      /> */
-      }
+      /> */}
     </AsideLayouts>
   )
 }

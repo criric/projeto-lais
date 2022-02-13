@@ -331,7 +331,11 @@ function Agendar() {
               ))}
             </div>
             <div className={style.changePage}>
-              <button className={style.aplicarFiltro} onClick={postAgendamento}>
+              <button
+                className={style.aplicarFiltro}
+                onClick={postAgendamento}
+                disabled={!itemSelected}
+              >
                 Continuar
               </button>
               <ReactPaginate
@@ -342,7 +346,6 @@ function Agendar() {
                 onPageChange={({ selected }) => renderByPagination(selected)}
                 nextLabel={<PageNext />}
                 previousLabel={<PagePrevious />}
-                // previousLinkClassName={style.}
                 className={style.pagination}
               />
             </div>
@@ -357,6 +360,7 @@ function Agendar() {
           hora={comprovante.hora}
           status={comprovante.status}
           local={comprovante.localizacao}
+          nome={user?.nome}
           onClick={() => setComprovante(null)}
           onCancel={() => handleCancelAgenda(itemSelected.id)}
         />

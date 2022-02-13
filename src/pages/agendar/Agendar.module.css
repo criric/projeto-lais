@@ -116,6 +116,10 @@
   border-radius: 4px;
 }
 
+.aplicarFiltro:disabled {
+  opacity: 0.5;
+}
+
 .activePage {
   border: 1px solid #f72585;
   color: #f72585;
